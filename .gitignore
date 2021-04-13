@@ -1,5 +1,6 @@
+# done by Clelia
 *#
-#.iml
+.iml
 *~
 .idea
 .metadata
@@ -8,3 +9,4 @@ bin
 build
 *.log
 target
+**/.DS_Store
