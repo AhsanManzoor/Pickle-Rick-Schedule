@@ -1,8 +1,8 @@
 
 package com.picklerick.schedule.rest.api.model;
 
+
 import javax.persistence.*;
-import java.util.Date;
 
 
 /**
@@ -18,62 +18,153 @@ public class User {
     private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
     private String lastname;
     private String firstname;
-    //private Date checkinDate;
+    private String email;
+    private Double weekly_schedule;
+    private Long manager_id;
+    private Boolean is_admin;
 
+
+    /**
+     * Class constructor
+     * @author Clelia
+     * */
     public User(){}
 
-    public User(String lastname, String firstname) {
+    /**
+     * Class constructor with user specifications
+     * @author Clelia
+     * */
+    public User(String lastname, String firstname, String email, Double weekly_schedule, Long manager_id, Boolean is_admin) {
         this.lastname = lastname;
         this.firstname = firstname;
+        this.email = email;
+        this.weekly_schedule = weekly_schedule;
+        this.manager_id = manager_id;
+        this.is_admin = is_admin;
     }
 
-/**
-     * the last name of the user
-     *
-     */
-    public String getLastname() {
-        return lastname;
-    }
-
+    /**
+     * Generated Get method for id
+     * @author Clelia
+     * */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Generated Set method for Lastname
+     * @author Clelia
+     *
+     * @param id id to set
+     * */
     public void setId(Long id) {
         this.id = id;
     }
 
-    /*public Date getCheckinDate() {
-        return checkinDate;
+    /**
+     * Generated Get method for Lastname
+     * @author Clelia
+     * */
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setCheckinDate(Date checkinDate) {
-        this.checkinDate = checkinDate;
-    }*/
-
     /**
-     * the last name of the user
+     * Generated Set method for Lastname
+     * @author Clelia
      *
-     */
+     * @param lastname lastname to set
+     * */
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
 
     /**
-     * the firstname of the user
-     *
-     */
+     * Generated Get method for Firstname
+     * @author Clelia
+     * */
     public String getFirstname() {
         return firstname;
     }
 
     /**
-     * the firstname of the user
+     * Generated Set method for Firstname
+     * @author Clelia
      *
-     */
+     * @param firstname firstname to set
+     * */
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
+
+    /**
+     * Generated Get method for Email
+     * @author Clelia
+     * */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * Generated Set method for Email
+     * @author Clelia
+     *
+     * @param email Email address to set
+     * */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * Generated Get method for weekly_schedule
+     * @author Clelia
+     * */
+    public Double getWeekly_schedule() {
+        return weekly_schedule;
+    }
+
+    /**
+     * Generated Set method for weekly_schedule
+     * @author Clelia
+     *
+     * @param weekly_schedule time estimate to work*/
+    public void setWeekly_schedule(Double weekly_schedule) {
+        this.weekly_schedule = weekly_schedule;
+    }
+    /**
+     * Generated Get method for user's manager id
+     * @author Clelia
+     * */
+    public Long getManager_id() {
+        return manager_id;
+    }
+
+    /**
+     * Generated Set method for manager id
+     * @author Clelia
+     *
+     * @param manager_id refers to the user's manager*/
+    public void setManager_id(Long manager_id) {
+        this.manager_id = manager_id;
+    }
+
+    /**
+     * Generated Get method to see if user is an admin
+     * @author Clelia
+     * */
+    public Boolean getIs_admin() {
+        return is_admin;
+    }
+
+    /**
+     * Generated Set method for manager id
+     * @author Clelia
+     *
+     * @param is_admin shows if the user is an administrator*/
+    public void setIs_admin(Boolean is_admin) {
+        this.is_admin = is_admin;
+    }
+
 
     @Override
     public String toString() {
