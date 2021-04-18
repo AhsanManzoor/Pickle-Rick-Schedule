@@ -59,26 +59,26 @@ INSERT INTO pickle_rick_db.login VALUES (2, 'password');
 INSERT INTO pickle_rick_db.login VALUES (3, 'password');
 
 /* ! "Coded" by Ahsan */
-create table 'roles'(
-  'role_id' int(11) Not Null auto_increment,
-  'role_name' varchar(45) Not Null,
-  primary key ('id')
+create table pickle_rick_db.roles(
+  role_id int(11) Not Null auto_increment,
+  role_name varchar(45) Not Null,
+  primary key (id)
 );
 
 /* ! "Coded" by Ahsan */
-CREATE TABLE `users_roles` (
-  `user_id` int(11) NOT NULL,
-  `role_id` int(11) NOT NULL,
-  KEY `user_fk_idx` (`user_id`),
-  KEY `role_fk_idx` (`role_id`),
-  CONSTRAINT `role_fk` FOREIGN KEY (`role_id`) REFERENCES `roles` (`role_id`),
-  CONSTRAINT `user_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
+CREATE TABLE pickle_rick_db.users_roles (
+  user_id int(11) NOT NULL,
+  role_id int(11) NOT NULL,
+  KEY user_fk_idx (user_id),
+  KEY role_fk_idx (role_id),
+  CONSTRAINT role_fk FOREIGN KEY (role_id) REFERENCES roles (role_id),
+  CONSTRAINT user_fk FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
 
 /* ! "Coded" by Ahsan */
-INSERT INTO `roles` (`name`) VALUES ('USER');
-INSERT INTO `roles` (`name`) VALUES ('EDITOR');
-INSERT INTO `roles` (`name`) VALUES ('ADMIN','CREATOR');
+INSERT INTO pickle_rick_db.roles (`name`) VALUES ('USER');
+INSERT INTO pickle_rick_db.roles (`name`) VALUES ('Manager');
+INSERT INTO pickle_rick_db.roles (`name`) VALUES ('ADMIN','CREATOR');
 
 /* ! "Coded" by Stefan */
 insert into pickle_rick_db.project values (1, 'Peace', 'Enhancing peace on the world by fighting poverty',1);
