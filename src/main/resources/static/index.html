@@ -1,5 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      Xmlns:sec="https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf">
+
+<span sec:authentication="name">Username</span>
+<span sec:authentication="principal.authorities">Roles</span>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout" />
+</form>
 <head>
     <title>Home page</title>
 </head>
@@ -12,6 +20,19 @@
 <div id="main">
     <a href="/users">Show users</a>
 </div>
-
+<div sec:authorize="isAuthenticated()">
+    Welcome <b><span sec:authentication="name">Username</span></b>
+    &nbsp;
+    <i><span sec:authentication="principal.authorities">Roles</span></i>
+</div>
+<div sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')">
+    <a href="/new">Create New User</a>
+</div>
+<div sec:authorize="hasAnyAuthority('ADMIN', 'EDITOR')">
+    <a th:href="/@{'/edit/' + ${user.id}}">Edit</a>
+</div>
+<div sec:authorize="hasAuthority('ADMIN')">
+    <a th:href="/@{'/delete/' + ${Delete.id}}">Delete</a>
+</div>
 </body>
-</html>
+</>

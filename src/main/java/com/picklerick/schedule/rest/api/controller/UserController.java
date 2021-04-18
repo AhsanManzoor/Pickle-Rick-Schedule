@@ -113,7 +113,7 @@ public class UserController {
                                     case "email": u.setEmail((String) value); break;
                                     case "weekly_schedule": u.setWeekly_schedule((Double) value); break;
                                     case "manager_id": u.setManager_id((Long) value); break;
-                                    case "is_admin": u.setIs_admin((Boolean) value); break;
+
                                 }
                             });
                     return repository.save(u);

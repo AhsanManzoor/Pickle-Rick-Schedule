@@ -2,7 +2,11 @@
 package com.picklerick.schedule.rest.api.model;
 
 
+
+import org.springframework.context.annotation.Role;
+
 import javax.persistence.*;
+import java.util.*;
 
 
 /**
@@ -14,14 +18,17 @@ import javax.persistence.*;
 @Entity
 @Table(name="user")
 public class User {
-
-    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
+    @Id
+    @Column(name= "user_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String lastname;
     private String firstname;
     private String email;
+    private String password;
     private Double weekly_schedule;
     private Long manager_id;
-    private Boolean is_admin;
+    private boolean enabled;
 
 
     /**
@@ -34,14 +41,27 @@ public class User {
      * Class constructor with user specifications
      * @author Clelia
      * */
-    public User(String lastname, String firstname, String email, Double weekly_schedule, Long manager_id, Boolean is_admin) {
+    public User(String lastname, String firstname, String email, String password, Double weekly_schedule, Long manager_id, Boolean enabled) {
         this.lastname = lastname;
         this.firstname = firstname;
         this.email = email;
+        this.password = password;
         this.weekly_schedule = weekly_schedule;
         this.manager_id = manager_id;
-        this.is_admin = is_admin;
+        this.enabled = enabled;
+
     }
+    /**
+     * joining tables
+     * @author Ahsan
+     * */
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set <Roles>roles = new HashSet<>();
 
     /**
      * Generated Get method for id
@@ -115,6 +135,18 @@ public class User {
         this.email = email;
     }
 
+    public String getPassword(){
+    return password;
+    }
+    public void setPassword(String password){
+        this.password = password;
+    }
+    public Boolean isEnabled(){
+        return enabled;
+    }
+    public void setEnabled(boolean enabled){
+        this.enabled = enabled;
+    }
     /**
      * Generated Get method for weekly_schedule
      * @author Clelia
@@ -147,24 +179,6 @@ public class User {
     public void setManager_id(Long manager_id) {
         this.manager_id = manager_id;
     }
-
-    /**
-     * Generated Get method to see if user is an admin
-     * @author Clelia
-     * */
-    public Boolean getIs_admin() {
-        return is_admin;
-    }
-
-    /**
-     * Generated Set method for manager id
-     * @author Clelia
-     *
-     * @param is_admin shows if the user is an administrator*/
-    public void setIs_admin(Boolean is_admin) {
-        this.is_admin = is_admin;
-    }
-
 
     @Override
     public String toString() {
@@ -204,11 +218,11 @@ public class User {
         if (other == this) {
             return true;
         }
-        if ((other instanceof User) == false) {
+        if (!(other instanceof User)) {
             return false;
         }
        User rhs = ((User) other);
-        return ((((this.firstname == rhs.firstname)||((this.firstname!= null)&&this.firstname.equals(rhs.firstname)))&&((this.id == rhs.id)||((this.id!= null)&&this.id.equals(rhs.id))))&&((this.lastname == rhs.lastname)||((this.lastname!= null)&&this.lastname.equals(rhs.lastname))));
+        return this.firstname.equals(rhs.firstname) && this.id.equals(rhs.id) && this.lastname.equals(rhs.lastname);
     }
 
 }
