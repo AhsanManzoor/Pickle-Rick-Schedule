@@ -76,9 +76,9 @@ CREATE TABLE pickle_rick_db.users_roles (
 );
 
 /* ! "Coded" by Ahsan */
-INSERT INTO pickle_rick_db.roles (`name`) VALUES ('USER');
-INSERT INTO pickle_rick_db.roles (`name`) VALUES ('Manager');
-INSERT INTO pickle_rick_db.roles (`name`) VALUES ('ADMIN','CREATOR');
+INSERT INTO pickle_rick_db.roles (name) VALUES (Employee);
+INSERT INTO pickle_rick_db.roles (name) VALUES (Manager);
+INSERT INTO pickle_rick_db.roles (name) VALUES (ADMIN,CREATOR);
 
 /* ! "Coded" by Stefan */
 insert into pickle_rick_db.project values (1, 'Peace', 'Enhancing peace on the world by fighting poverty',1);
