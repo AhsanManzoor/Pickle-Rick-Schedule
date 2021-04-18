@@ -8,6 +8,7 @@ create table pickle_rick_db.user(
     firstname varchar (30),
     lastname varchar (30),
     email varchar (50),
+    password varchar(64);
     weekly_schedule decimal,
     manager_id int,
     foreign key (manager_id) references pickle_rick_db.User(id)
@@ -53,10 +54,6 @@ INSERT INTO pickle_rick_db.user VALUES (1,'Sven', 'Salzig', 'sven@gmail.com', 42
 INSERT INTO pickle_rick_db.user VALUES (2,'Eva', 'Svenson', 'eva@gmail.com', 42, 1, true);
 INSERT INTO pickle_rick_db.user VALUES (3,'Lilly', 'Peterson', 'Lilly@gmail.com', 40, 2, false);
 
-/* ! "Coded" by Stefan */
-INSERT INTO pickle_rick_db.login VALUES (1, 'password');
-INSERT INTO pickle_rick_db.login VALUES (2, 'password');
-INSERT INTO pickle_rick_db.login VALUES (3, 'password');
 
 /* ! "Coded" by Ahsan */
 create table pickle_rick_db.roles(
