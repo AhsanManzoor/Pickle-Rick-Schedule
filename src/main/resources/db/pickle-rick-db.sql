@@ -4,13 +4,12 @@ create database pickle_rick_db;
 
 /* ! Coded by Stefan */
 create table pickle_rick_db.user(
-    id int auto_increment primary key,
+    user_id int auto_increment primary key,
     firstname varchar (30),
     lastname varchar (30),
     email varchar (50),
     weekly_schedule decimal,
     manager_id int,
-    is_admin boolean,
     foreign key (manager_id) references pickle_rick_db.User(id)
 );
 
@@ -25,7 +24,7 @@ create table pickle_rick_db.project(
 
 /* ! Coded by Stefan & Clelia */
 create table pickle_rick_db.login(
-  user_id int auto_increment primary key,
+  user_id int primary key,
   password varchar (1000)
 );
 
@@ -58,6 +57,28 @@ INSERT INTO pickle_rick_db.user VALUES (3,'Lilly', 'Peterson', 'Lilly@gmail.com'
 INSERT INTO pickle_rick_db.login VALUES (1, 'password');
 INSERT INTO pickle_rick_db.login VALUES (2, 'password');
 INSERT INTO pickle_rick_db.login VALUES (3, 'password');
+
+/* ! "Coded" by Ahsan */
+create table 'roles'(
+  'role_id' int(11) Not Null auto_increment,
+  'role_name' varchar(45) Not Null,
+  primary key ('id')
+);
+
+/* ! "Coded" by Ahsan */
+CREATE TABLE `users_roles` (
+  `user_id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  KEY `user_fk_idx` (`user_id`),
+  KEY `role_fk_idx` (`role_id`),
+  CONSTRAINT `role_fk` FOREIGN KEY (`role_id`) REFERENCES `roles` (`role_id`),
+  CONSTRAINT `user_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
+);
+
+/* ! "Coded" by Ahsan */
+INSERT INTO `roles` (`name`) VALUES ('USER');
+INSERT INTO `roles` (`name`) VALUES ('EDITOR');
+INSERT INTO `roles` (`name`) VALUES ('ADMIN','CREATOR');
 
 /* ! "Coded" by Stefan */
 insert into pickle_rick_db.project values (1, 'Peace', 'Enhancing peace on the world by fighting poverty',1);
