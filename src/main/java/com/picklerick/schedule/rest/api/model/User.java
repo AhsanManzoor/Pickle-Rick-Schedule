@@ -3,6 +3,7 @@ package com.picklerick.schedule.rest.api.model;
 
 
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -23,6 +24,14 @@ public class User {
     private Long manager_id;
     private Boolean is_admin;
 
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(
+            name="user_role",
+            joinColumns = {@JoinColumn(name="user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")}
+    )
+    private List<Role> roles;
+
 
     /**
      * Class constructor
@@ -34,13 +43,14 @@ public class User {
      * Class constructor with user specifications
      * @author Clelia
      * */
-    public User(String lastname, String firstname, String email, Double weekly_schedule, Long manager_id, Boolean is_admin) {
+    public User(String lastname, String firstname, String email, Double weekly_schedule, Long manager_id, Boolean is_admin, List<Role> roles) {
         this.lastname = lastname;
         this.firstname = firstname;
         this.email = email;
         this.weekly_schedule = weekly_schedule;
         this.manager_id = manager_id;
         this.is_admin = is_admin;
+        this.roles = roles;
     }
 
     /**
@@ -165,6 +175,22 @@ public class User {
         this.is_admin = is_admin;
     }
 
+    /**
+     * Generated Get method to see what roles a user has
+     * @author Clelia
+     * */
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    /**
+     * Generated Set the different roles a user can have
+     * @author Clelia
+     *
+     * @param roles displays the roles a user has -> what access they should be grantedr*/
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 
     @Override
     public String toString() {
