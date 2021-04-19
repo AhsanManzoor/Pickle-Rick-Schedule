@@ -32,6 +32,9 @@ public class User {
     )
     private List<Role> roles;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Login login;
 
     /**
      * Class constructor
@@ -43,7 +46,7 @@ public class User {
      * Class constructor with user specifications
      * @author Clelia
      * */
-    public User(String lastname, String firstname, String email, Double weekly_schedule, Long manager_id, Boolean is_admin, List<Role> roles) {
+    public User(String lastname, String firstname, String email, Double weekly_schedule, Long manager_id, Boolean is_admin, List<Role> roles, Login login) {
         this.lastname = lastname;
         this.firstname = firstname;
         this.email = email;
@@ -51,6 +54,7 @@ public class User {
         this.manager_id = manager_id;
         this.is_admin = is_admin;
         this.roles = roles;
+        this.login = login;
     }
 
     /**
@@ -190,6 +194,22 @@ public class User {
      * @param roles displays the roles a user has -> what access they should be grantedr*/
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    /**
+     * Generate get method for Login of user
+     * @author Clelia
+     * */
+    public Login getLogin() {
+        return login;
+    }
+
+    /**
+     * Generated set method for Login of user
+     * @author Clelia
+     * */
+    public void setLogin(Login login) {
+        this.login = login;
     }
 
     @Override
