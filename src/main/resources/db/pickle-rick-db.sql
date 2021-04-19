@@ -7,6 +7,7 @@ create table pickle_rick_db.user(
     user_id int auto_increment primary key,
     firstname varchar (30),
     lastname varchar (30),
+    username varchar (30),
     email varchar (50),
     password varchar(64);
     weekly_schedule decimal,
@@ -50,9 +51,9 @@ create table pickle_rick_db.work(
 );
 
 /* ! "Coded" by Stefan */
-INSERT INTO pickle_rick_db.user VALUES (1,'Sven', 'Salzig', 'sven@gmail.com', 42, 1, false);
-INSERT INTO pickle_rick_db.user VALUES (2,'Eva', 'Svenson', 'eva@gmail.com', 42, 1, true);
-INSERT INTO pickle_rick_db.user VALUES (3,'Lilly', 'Peterson', 'Lilly@gmail.com', 40, 2, false);
+INSERT INTO pickle_rick_db.user VALUES (1,'Sven', 'Salzig', 'sven.salzig@fhnw', 'sven@gmail.com', 42, 1);
+INSERT INTO pickle_rick_db.user VALUES (2,'Eva', 'Svenson', 'eva.svenson@fhnw','eva@gmail.com', 42, 1);
+INSERT INTO pickle_rick_db.user VALUES (3,'Lilly', 'Peterson','lilly.peterson@fhnw', 'Lilly@gmail.com', 40, 2);
 
 
 /* ! "Coded" by Ahsan */
@@ -75,7 +76,7 @@ CREATE TABLE pickle_rick_db.users_roles (
 /* ! "Coded" by Ahsan */
 INSERT INTO pickle_rick_db.roles (name) VALUES (Employee);
 INSERT INTO pickle_rick_db.roles (name) VALUES (Manager);
-INSERT INTO pickle_rick_db.roles (name) VALUES (ADMIN,CREATOR);
+INSERT INTO pickle_rick_db.roles (name) VALUES (ADMIN);
 
 /* ! "Coded" by Stefan */
 insert into pickle_rick_db.project values (1, 'Peace', 'Enhancing peace on the world by fighting poverty',1);

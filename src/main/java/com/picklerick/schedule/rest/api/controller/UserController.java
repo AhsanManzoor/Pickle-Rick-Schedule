@@ -16,6 +16,29 @@ public class UserController {
         this.repository = repository;
     }
 
+      /** STEFAN IS WORKING AT THAT
+     * Check whether User is Admin or not
+     * @authors Stefan,
+     *
+     * @param id admin-id
+     */
+      /*
+    @GetMapping("/users/admin/{id}")
+    Iterable<User> allByAdmin(@PathVariable Long id) {
+        //TODO find all users created by admin
+        return repository.findAll();
+    }
+    */
+
+
+
+    /**
+     * Returns a user with a specific id
+     * @author: Clelia
+     *
+     * @param id the id of the user to retrieve
+     *
+     */
 
     /**
      * Returns a list with all users
