@@ -16,23 +16,28 @@ public class UserController {
         this.repository = repository;
     }
 
-      /** STEFAN IS WORKING AT THAT
+
+      /**
      * Check whether User is Admin or not
-     * @authors Stefan,
-     *
-     * @param id admin-id
+     * @author Stefan,
+     * @param id user-id
      */
-      /*
-    @GetMapping("/users/admin/{id}")
-    Iterable<User> allByAdmin(@PathVariable Long id) {
-        //TODO find all users created by admin
-        return repository.findAll();
-    }
-    */
+
+      @GetMapping("/users/{id}")
+      // Assumption: Admin has role id 1
+      Boolean checkIfUserIsAdmin(@PathVariable Long id) throws Exception {
+          User u = repository.findById(id).orElseThrow(Exception::new);
+          if(u.getRole_id() == 1){
+              return true;
+          } else {
+              return false;}
+
+      }
 
 
 
-    /**
+
+    /*
      * Returns a user with a specific id
      * @author: Clelia
      *
@@ -51,19 +56,19 @@ public class UserController {
 
     /**
      * Returns a user with a specific id
-     * @author: Clelia
+     * @author Clelia
      *
      * @param id the id of the user to retrieve
      *
     */
     @GetMapping("/users/{id}")
     User one(@PathVariable Long id) throws Exception {
-        return repository.findById(id).orElseThrow(()-> new Exception());
+        return repository.findById(id).orElseThrow(Exception::new);
     }
 
     /**
      * Update a users information
-     * @author: Clelia
+     * @author Clelia
      *
      * @param id id of user updating their information
      */
@@ -89,7 +94,7 @@ public class UserController {
 
     /**
      * Get all users created by admin
-     * @authors Clelia,
+     * @author Clelia
      *
      * @param id admin-id
      */

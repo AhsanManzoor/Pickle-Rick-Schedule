@@ -89,7 +89,7 @@ insert into pickle_rick_db.project values (3, 'Saving the planet', 'Saving the p
 /* ! "Coded" by Stefan */
 insert into pickle_rick_db.employeeproject values(1, 1);
 insert into pickle_rick_db.employeeproject values(2, 2);
-insert into pickle_rick_db.employeeproject values(2, 2);
+insert into picknle_rick_db.employeeproject values(2, 2);
 
 
 /* ! "Coded" by Stefan & Clelia*/
