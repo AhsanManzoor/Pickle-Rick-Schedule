@@ -12,6 +12,9 @@ create table pickle_rick_db.user(
     password varchar(64);
     weekly_schedule decimal,
     manager_id int,
+    role_id long,
+    role_name varchar(30),
+    foreign key (role_id) references pickle_rick_db.Role(id),
     foreign key (manager_id) references pickle_rick_db.User(id)
 );
 

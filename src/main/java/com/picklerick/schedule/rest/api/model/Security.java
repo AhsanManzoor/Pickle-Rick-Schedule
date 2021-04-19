@@ -32,12 +32,12 @@ public class Security extends WebSecurityConfiguration {
         authProvider.setUserDetailsService(userDesignService());
         return authProvider;
     }
-    @Override
+
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
     }
 
-    @Override
+   
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").hasAnyAuthority("USER", "CREATOR", "EDITOR", "ADMIN")

@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.management.relation.RelationNotification;
 import javax.management.relation.Role;
 
 
@@ -18,11 +19,12 @@ public class User_details implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<Role> roles = user.getRole();
+        String roles = user.getRole_name();
 
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        for (Role role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role.getRoleName());
+        for (int i = 0; i < authorities.size(); i ++) {
+
+            authorities.add(new SimpleGrantedAuthority(User.getRole_name()));
         }
         return authorities;
     }
@@ -36,6 +38,8 @@ public class User_details implements UserDetails {
     public String getUsername() {
         return null;
     }
+
+
 
     public String getEmail() {
         return user.getEmail();

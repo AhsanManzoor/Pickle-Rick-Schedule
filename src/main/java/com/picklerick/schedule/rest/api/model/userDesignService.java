@@ -10,9 +10,9 @@ public class userDesignService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
     @Override
-    public User_details loadUserByUsername(String email)
+    public User_details loadUserByUsername(String username)
             throws UsernameNotFoundException {
-        User user = userRepository.getUserByEmail(email);
+        User user = userRepository.loadUserByUsername(username);
 
         if (user == null) {
             throw new UsernameNotFoundException("Could not find user email!");

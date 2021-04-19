@@ -3,7 +3,6 @@ package com.picklerick.schedule.rest.api.model;
 
 
 
-import org.springframework.context.annotation.Role;
 
 import javax.persistence.*;
 import java.util.*;
@@ -29,6 +28,8 @@ public class User {
     private Double weekly_schedule;
     private Long manager_id;
     private boolean enabled;
+    private Long role_id;
+    private static String role_name;
 
 
     /**
@@ -39,9 +40,9 @@ public class User {
 
     /**
      * Class constructor with user specifications
-     * @author Clelia
+     * @author Clelia & Stefan
      * */
-    public User(String lastname, String firstname, String email, String password, Double weekly_schedule, Long manager_id, Boolean enabled) {
+    public User(String lastname, String firstname, String email, String password, Double weekly_schedule, Long manager_id, Boolean enabled, Long role_id, String role_name) {
         this.lastname = lastname;
         this.firstname = firstname;
         this.email = email;
@@ -49,19 +50,12 @@ public class User {
         this.weekly_schedule = weekly_schedule;
         this.manager_id = manager_id;
         this.enabled = enabled;
+        this.role_id = role_id;
+        this.role_name = role_name;
 
     }
-    /**
-     * joining tables
-     * @author Ahsan
-     * */
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set <Roles>roles = new HashSet<>();
+
+
 
     /**
      * Generated Get method for id
@@ -124,6 +118,7 @@ public class User {
     public String getEmail() {
         return email;
     }
+
 
     /**
      * Generated Set method for Email
@@ -224,5 +219,33 @@ public class User {
        User rhs = ((User) other);
         return this.firstname.equals(rhs.firstname) && this.id.equals(rhs.id) && this.lastname.equals(rhs.lastname);
     }
+
+    /**
+     * Generated Set method for id
+     * @author Stefan & Ahsan
+     *
+     * @param role_id role_id to set
+     * */
+    public void setRole_id(Long role_id){this.role_id = role_id;}
+
+    /**
+     * Generated Set method for Role_name
+     * @author Stefan & Ahsan
+     *
+     * @param role_name role_name to set
+     * */
+    public void setRole_name(String role_name){this.role_name = role_name;}
+    /**
+     * Generated Get method for user's role_id
+     * @author Stefan & Ahsan
+     * */
+
+    public Long getRole_id(){return role_id;}
+    /**
+     * Generated Get method for user's role_name
+     * @author Stefan & Ahsan
+     * */
+    public static String getRole_name(){return role_name;}
+
 
 }
