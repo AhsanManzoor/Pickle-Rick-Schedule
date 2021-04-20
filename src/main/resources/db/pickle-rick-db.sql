@@ -4,64 +4,64 @@ create database pickle_rick_db;
 
 /* ! Coded by Stefan */
 create table pickle_rick_db.user(
-    id int NOT NULL AUTO_INCREMENT primary key,
-    firstname varchar (30),
-    lastname varchar (30),
-    email varchar (50),
-    weekly_schedule decimal,
-    manager_id int,
-    is_admin boolean,
-    foreign key (manager_id) references pickle_rick_db.User(id)
+                                    id int NOT NULL AUTO_INCREMENT primary key,
+                                    firstname varchar (30),
+                                    lastname varchar (30),
+                                    email varchar (50),
+                                    weekly_schedule decimal,
+                                    manager_id int,
+                                    is_admin boolean,
+                                    foreign key (manager_id) references pickle_rick_db.User(id)
 );
 
 /* ! Coded by Clelia*/
 create table pickle_rick_db.role(
-    id int NOT NULL AUTO_INCREMENT primary key,
-    name VARCHAR(50)
+                                    id int NOT NULL AUTO_INCREMENT primary key,
+                                    name VARCHAR(50)
 );
 
 /* ! Coded by Clelia*/
 create table pickle_rick_db.user_role(
-    user_id int NOT NULL,
-    role_id int NOT NULL,
-    foreign key(user_id) references pickle_rick_db.user(id),
-    foreign key(role_id) references pickle_rick_db.role(id)
+                                         user_id int NOT NULL,
+                                         role_id int NOT NULL,
+                                         foreign key(user_id) references pickle_rick_db.user(id),
+                                         foreign key(role_id) references pickle_rick_db.role(id)
 );
 
 /* ! Coded by Stefan & Clelia*/
 create table pickle_rick_db.project(
-   id int NOT NULL AUTO_INCREMENT primary key,
-   title varchar(100),
-   description varchar(600),
-   created_by int,
-   foreign key (created_by) references pickle_rick_db.user(id)
+                                       id int NOT NULL AUTO_INCREMENT primary key,
+                                       title varchar(100),
+                                       description varchar(600),
+                                       created_by int,
+                                       foreign key (created_by) references pickle_rick_db.user(id)
 );
 
 /* ! Coded by Stefan & Clelia */
 create table pickle_rick_db.login(
-  user_id int primary key,
-  password varchar (1000),
-  foreign key(user_id) references pickle_rick_db.user(id)
+                                     user_id int primary key,
+                                     password varchar (1000),
+                                     foreign key(user_id) references pickle_rick_db.user(id)
 );
 
 /* ! Coded by Stefan */
 create table pickle_rick_db.employeeproject(
-   user_id int,
-   project_id int,
-   foreign key (user_id) references pickle_rick_db.user(id),
-   foreign key (project_id) references pickle_rick_db.project(id)
+                                               user_id int,
+                                               project_id int,
+                                               foreign key (user_id) references pickle_rick_db.user(id),
+                                               foreign key (project_id) references pickle_rick_db.project(id)
 );
 
 /* ! Coded by Stefan&Clelia */
 create table pickle_rick_db.work(
-    id int NOT NULL AUTO_INCREMENT primary key,
-    date date,
-    start_at time,
-    end_at time,
-    user_id int,
-    project_id int,
-    foreign key (user_id) references pickle_rick_db.user(id),
-    foreign key (project_id) references pickle_rick_db.project(id)
+                                    id int NOT NULL AUTO_INCREMENT primary key,
+                                    date date,
+                                    start_at time,
+                                    end_at time,
+                                    user_id int,
+                                    project_id int,
+                                    foreign key (user_id) references pickle_rick_db.user(id),
+                                    foreign key (project_id) references pickle_rick_db.project(id)
 );
 
 /* ! "Coded" by Stefan */
@@ -70,7 +70,7 @@ INSERT INTO pickle_rick_db.user VALUES (2,'Eva', 'Svenson', 'eva@gmail.com', 42,
 INSERT INTO pickle_rick_db.user VALUES (3,'Lilly', 'Peterson', 'Lilly@gmail.com', 40, 2, false);
 
 /* ! "Coded" by Stefan */
-INSERT INTO pickle_rick_db.login VALUES (1, 'password');
+INSERT INTO pickle_rick_db.login VALUES (1, '$2y$12$ewXehiKAQOKp.oXBLe1iluvexuU8yrTLSJPXY/QznK4IYdlTR8HUG ');
 INSERT INTO pickle_rick_db.login VALUES (2, 'password');
 INSERT INTO pickle_rick_db.login VALUES (3, 'password');
 

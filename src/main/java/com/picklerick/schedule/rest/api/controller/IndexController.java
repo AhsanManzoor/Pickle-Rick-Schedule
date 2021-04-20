@@ -9,9 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 public class IndexController {
     @RequestMapping("/")
     public String index() {
-        if(null==null){
-            return null;
-        }
         return "forward:/index.html";
     }
 
