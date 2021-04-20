@@ -95,7 +95,7 @@ public class UserController {
      * */
     //TODO check if user is_admin
     //TODO does not update email, weekly_schedule, manager_id or is_admin, why?
-    @PatchMapping("/users/{id}")
+  /*  @PatchMapping("/users/{id}")
     public User changeUserData(@PathVariable Long id, @RequestBody Map<String, Object> userUpdates){
         // get saved user as fallback option
         User user = repository.findById(id).get();
@@ -120,7 +120,7 @@ public class UserController {
                 })
                 .orElseGet(()-> repository.save(user));
     }
-    /*
+
 
     This is for test purposes
        @PostMapping("/user")
