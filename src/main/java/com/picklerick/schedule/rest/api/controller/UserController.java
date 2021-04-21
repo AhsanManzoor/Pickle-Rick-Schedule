@@ -23,7 +23,8 @@ public class UserController {
      * */
     @GetMapping("/users")
     Iterable<User> all(){
-        return repository.findAll();
+        Iterable<User> users = repository.findAll();
+        return users;
     }
 
     /**

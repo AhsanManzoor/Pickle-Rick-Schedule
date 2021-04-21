@@ -9,14 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 public class IndexController {
     @RequestMapping("/")
     public String index() {
-        return "forward:/index.html";
+        return "index";
     }
 
     @RequestMapping("/default")
     public String defaultAfterLogin(HttpServletRequest request){
         if (request.isUserInRole("ADMIN")) {
-            return "redirect:/overview/";
+            return "redirect:/overview";
         }
-        return "redirect:/schedule/";
+        return "redirect:/schedule";
     }
 }

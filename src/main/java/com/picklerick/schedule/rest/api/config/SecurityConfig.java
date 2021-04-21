@@ -1,5 +1,6 @@
 package com.picklerick.schedule.rest.api.config;
 
+import com.picklerick.schedule.rest.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,28 +9,32 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
-import javax.sql.DataSource;
+//import java.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, proxyTargetClass = true)
-public class SecurityConfic extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService customUserDetailsService;
 
-    @Autowired
-    private DataSource dataSource;
+//    @Autowired
+//    private DataSource dataSource;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(12);
     }
 
     @Autowired
@@ -49,6 +54,7 @@ public class SecurityConfic extends WebSecurityConfigurerAdapter {
                 .headers()
                 .frameOptions().sameOrigin()
                 .and()
+                .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/")
                     .permitAll()
@@ -56,8 +62,9 @@ public class SecurityConfic extends WebSecurityConfigurerAdapter {
                     .authenticated()
                     .and()
                 .formLogin()
-                    .defaultSuccessUrl("/default")
                     .loginPage("/")
+                    .loginProcessingUrl("perform_login")
+                    .defaultSuccessUrl("/default")
                     .failureUrl("/?error")
                     .permitAll()
                     .and()
@@ -67,9 +74,11 @@ public class SecurityConfic extends WebSecurityConfigurerAdapter {
                     .permitAll();
     }
 
-    PersistentTokenRepository persistentTokenRepository() {
-        JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
-        tokenRepository.setDataSource(dataSource);
-        return tokenRepository;
-    }
+
+
+//    PersistentTokenRepository persistentTokenRepository() {
+//        JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
+//        tokenRepository.setDataSource(dataSource);
+//        return tokenRepository;
+//    }
 }
