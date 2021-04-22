@@ -50,28 +50,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // further is access to the form login on the login page and the logout page permitted.
         // todo check what .frameoptions.sameorigin exactly does
         // todo check what .tokenRepository and .tokenValiditySedonds do
-        http
-                .headers()
-                .frameOptions().sameOrigin()
-                .and()
-                .csrf().disable()
+//        http
+//                .headers()
+//                .frameOptions().sameOrigin()
+              http
                 .authorizeRequests()
-                .antMatchers("/")
-                    .permitAll()
-                    .anyRequest()
-                    .authenticated()
-                    .and()
+                .antMatchers("/overview/**").hasRole("ADMIN")
+                .antMatchers("/").permitAll()
+                .anyRequest().authenticated()
+                .and()
                 .formLogin()
                     .loginPage("/")
-                    .loginProcessingUrl("perform_login")
+                    .loginProcessingUrl("/perform_login")
                     .defaultSuccessUrl("/default")
                     .failureUrl("/?error")
                     .permitAll()
-                    .and()
-                .logout()
-                    .logoutSuccessUrl("/")
-                    .deleteCookies("my-remember-me-cookie")
-                    .permitAll();
+              .and()
+              .logout()
+                  .logoutSuccessUrl("/")
+                  .deleteCookies("my-remember-me-cookie")
+                  .permitAll();
     }
 
 
