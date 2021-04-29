@@ -60,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 // enable css and js
-                .antMatchers("/js/**", "/css/**", "/static/images/**").permitAll()
+                .antMatchers("/js/**", "/css/**", "/images/**").permitAll()
                 .antMatchers("/")
                 .permitAll()
                 .anyRequest()
