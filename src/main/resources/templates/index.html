@@ -7,15 +7,55 @@
 <head>
     <title>Log in</title>
     <link type="text/css" rel="stylesheet" th:href="@{css/login.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{css/clock.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{css/Login-Form-Dark.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.min.css/Login-Form-Dark.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Bitter:400,700}">
+    <link type="text/css" rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700}">
 </head>
 <body>
 <div class="main">
     <div class="main-overview">
+        <div layout:fragment="content" class="login-window">
+            <div class="login-logo">
+                <img th:src="@{css/images/logo.png}">
+                <div id="clock">
+                    <noscript>
+                        &lt;p&gt;
+                        The page clock requires JavaScript to function, please revisit in a scripting capable browser.
+                        &lt;/p&gt;
+                    </noscript>
+                </div>
+            </div>
+            <div class="login-box login-dark">
+                <h2 class="sr-only">Login Form</h2>
+                <form th:action="@{/perform_login}" method="post" class="credential-input">
+                    <div class="form-group has-feedback">
+                        <input type="email" class="form-control login-email" name="username" placeholder="Email"/>
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <input type="password" class="form-control" name="password" placeholder="Password"/>
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn-primary btn-block" type="submit">Log In</button>
+                    </div>
+                    <a class="forgot" href="#">Forgot Password?</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{js/jquery.min.js}"></script>
+<script th:src="@{js/bootstrap/bootstrap.min.js}"></script>
+<script th:src="@{js/clock.js}"></script>
+</body>
+</html>
 
-
+<!--
 
         <div layout:fragment="content" class="login-window">
-            <!---->
             <div layout:fragment="content">
                 <div class="">
                     <div class="panel panel-primary">
@@ -69,7 +109,6 @@
                     </div>
                 </div>
             </div>
-            <!---->
         </div>
 
 
@@ -80,15 +119,8 @@
 
     </div>
 </div>
+            -->
 
 
 
-
-
-
-</div>
-
-
-</body>
-</html>
 

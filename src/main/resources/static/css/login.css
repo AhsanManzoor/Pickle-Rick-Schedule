@@ -4,8 +4,12 @@
 }
 .main-overview {}
 
-h1 {
-    color: pink;
-    position: center;
-    background-color: rebeccapurple;
+.credential-input {
+    background: rgb(251, 252,254);
+    width: 400px;
+    height: 600px;
+}
+
+.form-group{
+    background: #fdfeff;
 }
