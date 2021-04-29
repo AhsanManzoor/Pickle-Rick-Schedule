@@ -11,15 +11,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 
 import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, proxyTargetClass = true)
-public class SecurityConfic extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService customUserDetailsService;
@@ -27,11 +26,18 @@ public class SecurityConfic extends WebSecurityConfigurerAdapter {
     @Autowired
     private DataSource dataSource;
 
+    /**
+     * Encypt password with BCryptPasswordEncoder with 12 rounds
+     * @author Clelia
+     * */
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(12);
     }
 
+    /**
+     * @author Clelia
+     * */
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
@@ -39,37 +45,45 @@ public class SecurityConfic extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder());
     }
 
+    /**
+     * Configure Security setup
+     * @author Clelia
+     * */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // any request outside of the root content is requiring authentication
         // further is access to the form login on the login page and the logout page permitted.
-        // todo check what .frameoptions.sameorigin exactly does
-        // todo check what .tokenRepository and .tokenValiditySedonds do
         http
-                .headers()
-                .frameOptions().sameOrigin()
-                .and()
                 .authorizeRequests()
+                // enable css and js
+                .antMatchers("/js/**", "/css/**", "/static/images/**").permitAll()
                 .antMatchers("/")
-                    .permitAll()
-                    .anyRequest()
-                    .authenticated()
-                    .and()
+                .permitAll()
+                .anyRequest()
+                .authenticated()
+                .and()
                 .formLogin()
-                    .defaultSuccessUrl("/default")
-                    .loginPage("/")
-                    .failureUrl("/?error")
-                    .permitAll()
-                    .and()
+                .loginPage("/")
+                .loginProcessingUrl("/perform_login")
+                .defaultSuccessUrl("/default")
+                .failureUrl("/?error")
+                .permitAll()
+                .and()
                 .logout()
-                    .logoutSuccessUrl("/")
-                    .deleteCookies("my-remember-me-cookie")
-                    .permitAll();
+                .logoutSuccessUrl("/")
+                .permitAll()
+                // for postman we need to create an entry point to authorize requests
+                .and().httpBasic().realmName("REALM_PICKLE").authenticationEntryPoint(entryPoint());
     }
 
-    PersistentTokenRepository persistentTokenRepository() {
-        JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
-        tokenRepository.setDataSource(dataSource);
-        return tokenRepository;
+    /**
+     * Add entry point for postman to access with basic authentication configurations
+     * @author Clelia
+     * */
+    public BasicAuthenticationEntryPoint entryPoint(){
+        BasicAuthenticationEntryPoint basic = new BasicAuthenticationEntryPoint();
+        basic.setRealmName("REALM_PICKLE");
+        return basic;
     }
+
 }

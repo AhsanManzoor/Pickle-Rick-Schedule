@@ -2,8 +2,12 @@ package com.picklerick.schedule.rest.api.controller;
 
 import com.picklerick.schedule.rest.api.model.User;
 import com.picklerick.schedule.rest.api.repository.UserRepository;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.Map;
 
 
@@ -19,11 +23,14 @@ public class UserController {
 
     /**
      * Returns a list with all users
+     * only an Admin user has access to all users
      * @author Clelia
      * */
+    @Secured("ROLE_ADMIN")
     @GetMapping("/users")
     Iterable<User> all(){
-        return repository.findAll();
+        Iterable<User> users = repository.findAll();
+        return users;
     }
 
     /**
@@ -32,7 +39,7 @@ public class UserController {
      *
      * @param id the id of the user to retrieve
      *
-    */
+     */
     @GetMapping("/users/{id}")
     User one(@PathVariable Long id) throws Exception {
         return repository.findById(id).orElseThrow(()-> new Exception());
@@ -80,7 +87,7 @@ public class UserController {
      * Create new user
      * @author Clelia
      * */
-    //TODO check if user is_admin
+    @Secured("ROLE_ADMIN")
     @PostMapping("/users")
     public User addNewUser(@RequestBody User newUser) {
         return repository.save(newUser);
@@ -99,7 +106,6 @@ public class UserController {
     public User changeUserData(@PathVariable Long id, @RequestBody Map<String, Object> userUpdates){
         // get saved user as fallback option
         User user = repository.findById(id).get();
-
         // Fetch User data from db and
         // go through all the possible options of change
         // and save the changes to the user
@@ -120,14 +126,11 @@ public class UserController {
                 })
                 .orElseGet(()-> repository.save(user));
     }
-
-
     This is for test purposes
        @PostMapping("/user")
     public User newUser(@RequestBody User newUser) {
         return repository.save(newUser);
     }
-
     @PatchMapping("/user/{id}/checkin")
     public User checkinUser(@RequestBody User user, @PathVariable Long id) {
         return repository.findById(id)
@@ -139,5 +142,3 @@ public class UserController {
     }*/
 
 }
-
-

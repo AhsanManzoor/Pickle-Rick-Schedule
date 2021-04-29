@@ -7,16 +7,23 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class IndexController {
+    /**
+     * @author Clelia
+     * */
     @RequestMapping("/")
     public String index() {
-        return "forward:/index.html";
+        return "index";
     }
 
+    /**
+     * @author Clelia
+     * */
     @RequestMapping("/default")
     public String defaultAfterLogin(HttpServletRequest request){
-        if (request.isUserInRole("ADMIN")) {
-            return "redirect:/overview/";
+        request.getUserPrincipal();
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            return "redirect:/overview";
         }
-        return "redirect:/schedule/";
+        return "redirect:/schedule";
     }
 }
