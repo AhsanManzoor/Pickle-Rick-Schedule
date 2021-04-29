@@ -2,6 +2,9 @@
 package com.picklerick.schedule.rest.api.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -34,6 +37,7 @@ public class User {
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
+    @JsonIgnore
     private Login login;
 
     /**
@@ -163,23 +167,6 @@ public class User {
     }
 
     /**
-     * Generated Get method to see if user is an admin
-     * @author Clelia
-     * */
-    public Boolean getIs_admin() {
-        return is_admin;
-    }
-
-    /**
-     * Generated Set method for manager id
-     * @author Clelia
-     *
-     * @param is_admin shows if the user is an administrator*/
-    public void setIs_admin(Boolean is_admin) {
-        this.is_admin = is_admin;
-    }
-
-    /**
      * Generated Get method to see what roles a user has
      * @author Clelia
      * */
@@ -253,7 +240,7 @@ public class User {
         if ((other instanceof User) == false) {
             return false;
         }
-       User rhs = ((User) other);
+        User rhs = ((User) other);
         return ((((this.firstname == rhs.firstname)||((this.firstname!= null)&&this.firstname.equals(rhs.firstname)))&&((this.id == rhs.id)||((this.id!= null)&&this.id.equals(rhs.id))))&&((this.lastname == rhs.lastname)||((this.lastname!= null)&&this.lastname.equals(rhs.lastname))));
     }
 

@@ -70,9 +70,9 @@ INSERT INTO pickle_rick_db.user VALUES (2,'Eva', 'Svenson', 'eva@gmail.com', 42,
 INSERT INTO pickle_rick_db.user VALUES (3,'Lilly', 'Peterson', 'Lilly@gmail.com', 40, 2, false);
 
 /* ! "Coded" by Stefan */
-INSERT INTO pickle_rick_db.login VALUES (1, '$2y$12$ewXehiKAQOKp.oXBLe1iluvexuU8yrTLSJPXY/QznK4IYdlTR8HUG ');
-INSERT INTO pickle_rick_db.login VALUES (2, 'password');
-INSERT INTO pickle_rick_db.login VALUES (3, 'password');
+INSERT INTO pickle_rick_db.login VALUES (1, '$2y$12$k7HxqGYsiHoY89A4gAXeqOLHodLJ/OrfVuJR/jy7XwSWlZ6vS.dJi');
+INSERT INTO pickle_rick_db.login VALUES (2, '$2y$12$k7HxqGYsiHoY89A4gAXeqOLHodLJ/OrfVuJR/jy7XwSWlZ6vS.dJi');
+INSERT INTO pickle_rick_db.login VALUES (3, '$2y$12$k7HxqGYsiHoY89A4gAXeqOLHodLJ/OrfVuJR/jy7XwSWlZ6vS.dJi');
 
 /* ! "Coded" by Stefan */
 insert into pickle_rick_db.project values (1,'Peace', 'Enhancing peace on the world by fighting poverty',1);
@@ -85,16 +85,13 @@ insert into pickle_rick_db.employeeproject values(2, 2);
 insert into pickle_rick_db.employeeproject values(2, 2);
 
 /* ! Coded by Clelia */
-insert into pickle_rick_db.role values(1,'ADMIN');
-insert into pickle_rick_db.role values(2,'USER');
+insert into pickle_rick_db.role values(1,'ROLE_ADMIN');
+insert into pickle_rick_db.role values(2,'ROLE_USER');
 
 /* ! Coded by Clelia */
 insert into pickle_rick_db.user_role values(1,2);
 insert into pickle_rick_db.user_role values(2,1);
 insert into pickle_rick_db.user_role values(3, 2);
-
-/* ! Coded by Clelia */
-insert into pickle_rick_db.user_role values(1,2);
 
 /* ! "Coded" by Stefan & Clelia*/
 DROP USER IF EXISTS 'pickle'@'localhost';

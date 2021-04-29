@@ -2,12 +2,6 @@ package com.picklerick.schedule.rest.api.model;
 
 import javax.persistence.*;
 
-public class Project {
-}
-package com.picklerick.schedule.rest.api.model;
-
-        import javax.persistence.*;
-
 @Entity
 @Table(name = "project")
 public class Project {

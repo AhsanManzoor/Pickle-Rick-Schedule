@@ -1,0 +1,11 @@
+.main {
+    background-image: url('../images/pickle-bg.png');
+    position: center;
+}
+.main-overview {}
+
+h1 {
+    color: pink;
+    position: center;
+    background-color: rebeccapurple;
+}

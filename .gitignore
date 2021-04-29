@@ -12,12 +12,14 @@ target/
 .settings
 .springBeans
 .sts4-cache
+*.log
 
 ### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
+!**/.DS_Store
 
 ### NetBeans ###
 /nbproject/private/
@@ -28,6 +30,7 @@ target/
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
+rest-service.iml
 
 ### VS Code ###
 .vscode/

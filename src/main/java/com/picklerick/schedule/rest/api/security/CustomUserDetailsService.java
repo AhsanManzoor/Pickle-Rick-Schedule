@@ -36,7 +36,7 @@ public class CustomUserDetailsService implements UserDetailsService {
      * @author Clelia
      *
      * @param user user of the tool*/
-    private static Collection<? extends GrantedAuthority> getAuthorities(User user) {
+    private static Collection<? extends GrantedAuthority> getAuthorities(com.picklerick.schedule.rest.api.model.User user) {
         String[] userRoles = user.getRoles().stream().map((role) -> role.getName()).toArray(String[]::new);
         Collection<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(userRoles);
         return authorities;
