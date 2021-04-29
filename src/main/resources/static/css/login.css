@@ -7,9 +7,18 @@
 .credential-input {
     background: rgb(251, 252,254);
     width: 400px;
-    height: 600px;
 }
 
 .form-group{
-    background: #fdfeff;
+
+}
+h2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.login-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
