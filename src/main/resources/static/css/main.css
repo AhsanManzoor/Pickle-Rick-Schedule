@@ -62,7 +62,9 @@
     background-color: #F0938D;
     color: #020202;
 }
-
+a{
+    color: #020202;
+}
 hr{
     border-top: 1px solid #F0938D;
 }
