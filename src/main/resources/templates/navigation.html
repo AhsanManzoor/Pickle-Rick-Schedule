@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <meta charset="UTF-8"/>
+    <title>NavigationBar</title>
+    <link rel="stylesheet" type="text/css" media="all" href="../../css/NavBar.css" th:href="@{/css/NavBar.css}" />
+</head>
+<body>
+<div th:fragment="navigation" class="navigation shadow">
+    <button class="btn btn-outline-primary" th:href="@{/overview}">
+        Overview
+    </button>
+    <button class="btn btn-outline-primary" th:href="@{/schedule}">
+        Schedule
+    </button>
+    <button class="btn btn-outline-primary" th:href="@{/settings}">
+        Settings
+    </button>
+    <button class="btn btn-outline-primary" th:href="@{/logout}">
+        Logout
+    </button>
+</div>
+</body>
+</html>

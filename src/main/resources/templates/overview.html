@@ -6,8 +6,41 @@
       layout:decorator="layout">
 <head>
     <title>Overview</title>
+    <link type="text/css" rel="stylesheet" th:href="@{css/Login-Form-Dark.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{css/bootstrap/bootstrap.min.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Bitter:400,700}">
+    <link type="text/css" rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700}">
+    <link type="text/css" rel="stylesheet" th:href="@{css/clock.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{css/main.css}"/>
 </head>
 <body>
-<h1>Overview</h1>
+<div class="main">
+    <div class="main-bg"></div>
+    <div class="main-overview">
+        <img th:src="@{images/logo.png}" class="logo">
+        <div layout:fragment="content" class="main-overview-page">
+            <div th:insert="navigation :: navigation"></div>
+            <div layout:fragment="content" class="page-content">
+                <h2 class="page-title">Overview</h2>
+                <!--NEW SECTION-->
+                <div class="section card shadow">
+                    <div class="card-body">
+                        <h3 class="section-title">test employee</h3>
+                        <hr>
+                    </div>
+                </div>
+                <div class="section">
+                    <!-- ADD SECTION CONTENT HERE-->
+                </div>
+            </div>
+        </div>
+        <footer class="footer-basic">
+            <p class="copyright">Pickle_Rick TIme Recorder © 2021</p>
+        </footer>
+    </div>
+</div>
+<script th:src="@{js/jquery.min.js}"></script>
+<script th:src="@{js/bootstrap/bootstrap.min.js}"></script>
+<script th:src="@{js/clock.js}"></script>
 </body>
 </html>

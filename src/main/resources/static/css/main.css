@@ -1,0 +1,68 @@
+.main {
+    position: center;
+    position: relative;
+}
+.main-bg{
+    background-image: url('../images/pickle-bg.png');
+    position: absolute;
+    opacity: 30%;
+    inset: 0;
+    z-index: -1;
+}
+.main-overview {}
+
+.main-overview-page {
+    display: grid;
+    min-height: 90vh;
+    grid-template-areas:
+            'page-content navigation';
+    grid-template-columns: auto min-content;
+    grid-gap: 4rem;
+
+}
+
+.logo {
+    width: 20%;
+}
+.navigation{
+    grid-area: navigation;
+    display: grid;
+    grid-template-rows: min-content min-content min-content min-content;
+    align-content: center;
+    grid-gap: 1rem;
+    padding: 15%;
+    background-color: white;
+    border-color: #707070;
+    box-shadow: 0 3px ;
+    height: 100%;
+
+}
+.page-title {
+    position: center;
+}
+.page-content{
+    grid-area: page-content;
+    padding-left: 10%;
+}
+
+.page-title{
+    left: 45%;
+    position: relative;
+    padding-bottom: 4%;
+}
+
+.btn-outline-primary {
+    border-color: #4881B8;
+    padding: 25%;
+    color: #020202;
+    border-width: medium;
+}
+
+.btn-outline-primary:hover {
+    background-color: #F0938D;
+    color: #020202;
+}
+
+hr{
+    border-top: 1px solid #F0938D;
+}
