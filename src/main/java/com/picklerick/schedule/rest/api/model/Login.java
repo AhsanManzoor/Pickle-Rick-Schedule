@@ -1,3 +1,4 @@
+
 package com.picklerick.schedule.rest.api.model;
 
 import javax.persistence.*;

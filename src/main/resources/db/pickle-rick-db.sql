@@ -10,7 +10,6 @@ create table pickle_rick_db.user(
                                     email varchar (50),
                                     weekly_schedule decimal,
                                     manager_id int,
-                                    is_admin boolean,
                                     foreign key (manager_id) references pickle_rick_db.User(id)
 );
 
@@ -65,9 +64,9 @@ create table pickle_rick_db.work(
 );
 
 /* ! "Coded" by Stefan */
-INSERT INTO pickle_rick_db.user VALUES (1,'Sven', 'Salzig', 'sven@gmail.com', 42, 1, false);
-INSERT INTO pickle_rick_db.user VALUES (2,'Eva', 'Svenson', 'eva@gmail.com', 42, 1, true);
-INSERT INTO pickle_rick_db.user VALUES (3,'Lilly', 'Peterson', 'Lilly@gmail.com', 40, 2, false);
+INSERT INTO pickle_rick_db.user VALUES (1,'Sven', 'Salzig', 'sven@gmail.com', 42, null );
+INSERT INTO pickle_rick_db.user VALUES (2,'Eva', 'Svenson', 'eva@gmail.com', 42, 1);
+INSERT INTO pickle_rick_db.user VALUES (3,'Lilly', 'Peterson', 'Lilly@gmail.com', 40, 2);
 
 /* ! "Coded" by Stefan */
 INSERT INTO pickle_rick_db.login VALUES (1, '$2y$12$k7HxqGYsiHoY89A4gAXeqOLHodLJ/OrfVuJR/jy7XwSWlZ6vS.dJi');

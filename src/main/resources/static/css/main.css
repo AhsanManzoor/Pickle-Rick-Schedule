@@ -13,7 +13,7 @@
     display: grid;
     grid-template-areas: 'header navigation' 'page-content navigation' 'footer navigation';
     min-height: 100vh;
-    grid-template-rows: 100px auto 50px;
+    grid-template-rows: min-content auto min-content;
     gap: 1rem;
     grid-template-columns: auto min-content;
     padding-left: 1rem;
@@ -55,6 +55,7 @@
     border-color: #4881B8;
     color: #020202;
     border-width: medium;
+    padding: 32px;
 }
 
 .btn-outline-primary:hover {
@@ -70,4 +71,30 @@ hr{
 
 .footer-basic{
     grid-area: footer;
+}
+
+@media only screen and(max-width: 600px) {
+    .main-overview {
+        display: grid;
+        grid-template-areas: 'header' 'page-content' 'navigation' 'footer';
+        min-height: 100vh;
+        grid-template-rows: min-content auto min-content;
+        gap: 1rem;
+        grid-template-columns: auto min-content;
+        padding-left: 1rem;
+
+    }
+    .navigation{
+        grid-area: navigation;
+        padding: 15px;
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        align-content: center;
+        background-color: white;
+        border-color: #707070;
+        box-shadow: 0 3px ;
+        width: 100%;
+
+    }
 }

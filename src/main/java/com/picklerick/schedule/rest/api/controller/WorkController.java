@@ -26,7 +26,7 @@ public class WorkController {
      */
     // I still need to do the test
     // Output type questionable
-    public Double workingTimeCalculator(Time in, Time out) {
+    public static Double workingTimeCalculator(Time in, Time out) {
 
         // Transforming to LocalDate for method internal processing
         LocalTime inT = in.toLocalTime();
@@ -43,14 +43,17 @@ public class WorkController {
         if (earliestStart.isAfter(inT)) {
             inT= earliestStart;
         }
-        if (autoOut.equals(now) || autoOut.isBefore(now)){
-            result = ChronoUnit.HOURS.between(inT, autoOut);
+        if (autoOut.equals(now) || autoOut.isBefore(now) || autoOut.isBefore(outT)){
+            result = ChronoUnit.MINUTES.between(inT, autoOut);
+            result = result / 60;
 
         } else {
-            result = ChronoUnit.HOURS.between(inT, outT);    }
+            result = ChronoUnit.MINUTES.between(inT, outT);
+            result = result / 60;
+        }
 
         if (result >= max_workingTime_in_a_row) {
-            result = result - length_of_break;
+            result = result  - length_of_break ;
         }
 
         return result;

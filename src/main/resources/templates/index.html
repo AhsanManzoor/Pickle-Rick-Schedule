@@ -11,22 +11,25 @@
     <link type="text/css" rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Bitter:400,700}">
     <link type="text/css" rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700}">
     <link type="text/css" rel="stylesheet" th:href="@{css/clock.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{css/main.css}"/>
     <link type="text/css" rel="stylesheet" th:href="@{css/login.css}"/>
 </head>
 <body>
 <div class="main">
-    <div class="main-overview">
+    <div class="main-bg"></div>
+    <div class="main-overview-index">
+        <header class="header">
+            <img class="logo" th:src="@{images/logo.png}">
+        </header>
+        <div id="clock">
+            <noscript>
+                &lt;p&gt;
+                The page clock requires JavaScript to function, please revisit in a scripting capable browser.
+                &lt;/p&gt;
+            </noscript>
+        </div>
         <div layout:fragment="content" class="login-window">
-            <div class="login-logo">
-                <img th:src="@{images/logo.png}">
-                <div id="clock">
-                    <noscript>
-                        &lt;p&gt;
-                        The page clock requires JavaScript to function, please revisit in a scripting capable browser.
-                        &lt;/p&gt;
-                    </noscript>
-                </div>
-            </div>
+
             <h2>Login Form</h2>
             <div class="login-box login-dark">
                 <form th:action="@{/perform_login}" method="post" class="credential-input">
@@ -45,6 +48,9 @@
                 </form>
             </div>
         </div>
+        <footer class="footer-basic">
+            <p class="copyright">Pickle_Rick TIme Recorder © 2021</p>
+        </footer>
     </div>
 </div>
 <script th:src="@{js/jquery.min.js}"></script>

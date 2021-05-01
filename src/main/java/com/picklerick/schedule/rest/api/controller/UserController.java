@@ -1,5 +1,6 @@
 package com.picklerick.schedule.rest.api.controller;
 
+import com.picklerick.schedule.rest.api.model.Role;
 import com.picklerick.schedule.rest.api.model.User;
 import com.picklerick.schedule.rest.api.repository.UserRepository;
 import org.springframework.security.access.annotation.Secured;
@@ -36,9 +37,7 @@ public class UserController {
     /**
      * Returns a user with a specific id
      * @author: Clelia
-     *
      * @param id the id of the user to retrieve
-     *
      */
     @GetMapping("/users/{id}")
     User one(@PathVariable Long id) throws Exception {
@@ -47,12 +46,13 @@ public class UserController {
 
     /**
      * Update a users information
-     * @author: Clelia
+     * @author: Clelia & Stefan
      *
      * @param id id of user updating their information
      */
+    @Secured("ROLE_ADMIN")
     @PatchMapping("/users/{id}")
-    public User updateUser(@RequestBody Map<String, Object> userUpdates, @PathVariable Long id) {
+    public User updateUserAsAdmin(@RequestBody Map<String, Object> userUpdates, @PathVariable Long id) {
         User user = repository.findById(id).get();
         // Fetch User data from db and
         // go through all the possible options of change
@@ -61,15 +61,31 @@ public class UserController {
                 .map(u -> {
                     userUpdates.forEach(
                             (update, value)-> {
-                                switch (update){
-                                    case "firstname": u.setFirstname((String) value); break;
-                                    case "lastname": u.setLastname((String) value); break;
+                                switch (update) {
+                                    case "firstname":
+                                        u.setFirstname((String) value);
+                                        break;
+                                    case "lastname":
+                                        u.setLastname((String) value);
+                                        break;
+                                    case "email":
+                                        u.setEmail((String) value);
+                                        break;
+                                    case "weekly_schedule":
+                                        u.setWeekly_schedule((Double.parseDouble((String) value)));
+                                        break;
+                                    case "manager_id":
+                                        u.setManager_id((Long.parseLong((String) value)));
+                                        break;
+                                    // TODO solve role issue + create such a method for normal users
                                 }
                             }
                     );
                     return repository.save(u);
                 }).orElseGet(() -> repository.save(user));
+
     }
+
 
     /**
      * Get all users created by admin
@@ -100,9 +116,12 @@ public class UserController {
      *
      * @param id user id
      * */
-    //TODO check if user is_admin
+
     //TODO does not update email, weekly_schedule, manager_id or is_admin, why?
-  /*  @PatchMapping("/users/{id}")
+
+  /*
+  @Secured("ROLE_ADMIN")
+  @PatchMapping("/users/{id}")
     public User changeUserData(@PathVariable Long id, @RequestBody Map<String, Object> userUpdates){
         // get saved user as fallback option
         User user = repository.findById(id).get();

@@ -1,3 +1,12 @@
+.main-overview-index {
+    display: grid;
+    min-height: 100vh;
+    grid-template-areas: 'header' 'clock' 'login-window' 'footer';
+    grid-template-rows: min-content min-content auto min-content;
+    gap: 1rem;
+    padding-left: 1rem;
+
+}
 .credential-input {
     background: rgb(251, 252,254);
     width: 400px;
@@ -10,7 +19,8 @@
     display: grid;
     min-height: 90vh;
     grid-template-rows: min-content min-content auto 100px;
-    gap: 4rem
+    gap: 4rem;
+    grid-area: login-window;
 }
 h2 {
     display: flex;

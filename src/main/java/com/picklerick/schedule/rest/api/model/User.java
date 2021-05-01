@@ -3,7 +3,6 @@ package com.picklerick.schedule.rest.api.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.List;
@@ -25,7 +24,6 @@ public class User {
     private String email;
     private Double weekly_schedule;
     private Long manager_id;
-    private Boolean is_admin;
 
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(
@@ -50,13 +48,12 @@ public class User {
      * Class constructor with user specifications
      * @author Clelia
      * */
-    public User(String lastname, String firstname, String email, Double weekly_schedule, Long manager_id, Boolean is_admin, List<Role> roles, Login login) {
+    public User(String lastname, String firstname, String email, Double weekly_schedule, Long manager_id, List<Role> roles, Login login) {
         this.lastname = lastname;
         this.firstname = firstname;
         this.email = email;
         this.weekly_schedule = weekly_schedule;
         this.manager_id = manager_id;
-        this.is_admin = is_admin;
         this.roles = roles;
         this.login = login;
     }
@@ -222,7 +219,10 @@ public class User {
         }
         return sb.toString();
     }
-
+    /**
+     * Generated set method for Login of user
+     * @author Clelia
+     * */
     @Override
     public int hashCode() {
         int result = 1;
@@ -231,7 +231,9 @@ public class User {
         result = ((result* 31)+((this.lastname == null)? 0 :this.lastname.hashCode()));
         return result;
     }
-
+    /**
+     * @author Clelia
+     * */
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -241,7 +243,10 @@ public class User {
             return false;
         }
         User rhs = ((User) other);
-        return ((((this.firstname == rhs.firstname)||((this.firstname!= null)&&this.firstname.equals(rhs.firstname)))&&((this.id == rhs.id)||((this.id!= null)&&this.id.equals(rhs.id))))&&((this.lastname == rhs.lastname)||((this.lastname!= null)&&this.lastname.equals(rhs.lastname))));
+        return ((((this.firstname == rhs.firstname)||((this.firstname!= null)
+                &&this.firstname.equals(rhs.firstname)))&&((this.id == rhs.id)||((this.id!= null)
+                &&this.id.equals(rhs.id))))&&((this.lastname == rhs.lastname)||((this.lastname!= null)
+                &&this.lastname.equals(rhs.lastname))));
     }
 
 }

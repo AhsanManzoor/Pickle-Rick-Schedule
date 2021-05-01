@@ -6,11 +6,10 @@
       layout:decorator="layout">
 <head>
     <title>Overview</title>
-    <link type="text/css" rel="stylesheet" th:href="@{css/Login-Form-Dark.css}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link type="text/css" rel="stylesheet" th:href="@{css/bootstrap/bootstrap.min.css}"/>
     <link type="text/css" rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Bitter:400,700}">
     <link type="text/css" rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700}">
-    <link type="text/css" rel="stylesheet" th:href="@{css/clock.css}"/>
     <link type="text/css" rel="stylesheet" th:href="@{css/main.css}"/>
 </head>
 <body>
@@ -27,12 +26,34 @@
                 <!--NEW SECTION-->
                 <div class="section card shadow">
                     <div class="card-body">
-                        <h3 class="section-title">test employee</h3>
+                        <h3 class="section-title">Employees</h3>
                         <hr>
                     </div>
-                </div>
-                <div class="section">
-                    <!-- ADD SECTION CONTENT HERE-->
+                    <div class="section-content">
+                        <!-- ADD SECTION CONTENT HERE-->
+                        <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                            <table class="table my-0" id="dataTable">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>email</th>
+                                    <th>Scheduled</th>
+                                    <th>Actual</th>
+                                    <th>Over/Under time</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="user: ${users}">
+                                    <td th:text="${user.lastname}">Test</td>
+                                    <td th:text="${user.email}">Email</td>
+                                    <td th:text="${user.weekly_schedule}">schedule</td>
+                                    <td th:text="${user.weekly_schedule}">schedule</td>
+                                    <td th:text="${user.lastname}">Test</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -43,6 +64,5 @@
 </div>
 <script th:src="@{js/jquery.min.js}"></script>
 <script th:src="@{js/bootstrap/bootstrap.min.js}"></script>
-<script th:src="@{js/clock.js}"></script>
 </body>
 </html>
