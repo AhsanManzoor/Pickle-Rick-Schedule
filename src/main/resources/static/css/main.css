@@ -24,6 +24,7 @@
 .logo {
     width: 20%;
 }
+
 .navigation{
     grid-area: navigation;
     display: grid;
@@ -53,7 +54,6 @@
 
 .btn-outline-primary {
     border-color: #4881B8;
-    padding: 25%;
     color: #020202;
     border-width: medium;
 }
