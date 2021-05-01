@@ -17,9 +17,11 @@
 <div class="main">
     <div class="main-bg"></div>
     <div layout:fragment="content" class="main-overview">
-        <img th:src="@{images/logo.png}" class="logo">
+        <header class="header">
+            <img class="logo" th:src="@{images/logo.png}">
+        </header>
+        <div th:replace="navigation :: navigation"></div>
         <div class="main-overview-page">
-            <div th:replace="navigation :: navigation"></div>
             <div  class="page-content">
                 <h2 class="page-title">Overview</h2>
                 <!--NEW SECTION-->
