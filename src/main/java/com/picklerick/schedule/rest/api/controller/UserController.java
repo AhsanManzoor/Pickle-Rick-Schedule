@@ -6,6 +6,7 @@ import com.picklerick.schedule.rest.api.repository.UserRepository;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
@@ -26,12 +27,13 @@ public class UserController {
      * Returns a list with all users
      * only an Admin user has access to all users
      * @author Clelia
-     * */
+     **/
+    @ModelAttribute("users")
     @Secured("ROLE_ADMIN")
     @GetMapping("/users")
-    Iterable<User> all(){
-        Iterable<User> users = repository.findAll();
-        return users;
+    Iterable<User> all(Model model){
+        model.addAttribute("users", repository.findAll());
+        return repository.findAll();
     }
 
     /**

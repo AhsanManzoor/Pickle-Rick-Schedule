@@ -31,28 +31,8 @@
                     </div>
                     <div class="section-content">
                         <!-- ADD SECTION CONTENT HERE-->
-                        <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-                            <table class="table my-0" id="dataTable">
-                                <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>email</th>
-                                    <th>Scheduled</th>
-                                    <th>Actual</th>
-                                    <th>Over/Under time</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="user: ${users}">
-                                    <td th:text="${user.lastname}">Test</td>
-                                    <td th:text="${user.email}">Email</td>
-                                    <td th:text="${user.weekly_schedule}">schedule</td>
-                                    <td th:text="${user.weekly_schedule}">schedule</td>
-                                    <td th:text="${user.lastname}">Test</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <iframe src="users"></iframe>
+
                     </div>
                 </div>
             </div>
