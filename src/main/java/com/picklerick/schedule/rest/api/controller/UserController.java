@@ -1,15 +1,14 @@
 package com.picklerick.schedule.rest.api.controller;
 
-import com.picklerick.schedule.rest.api.model.Role;
 import com.picklerick.schedule.rest.api.model.User;
 import com.picklerick.schedule.rest.api.repository.UserRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.security.RolesAllowed;
 import java.util.Map;
 
 
@@ -41,8 +40,9 @@ public class UserController {
      * @author: Clelia
      * @param id the id of the user to retrieve
      */
+    @PreAuthorize("hasRole('ROLE_ADMIN') or authentication.principal.userId == #id")
     @GetMapping("/users/{id}")
-    User one(@PathVariable Long id) throws Exception {
+    User one(@PathVariable Long id, Authentication authentication) throws Exception {
         return repository.findById(id).orElseThrow(()-> new Exception());
     }
 

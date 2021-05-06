@@ -25,7 +25,7 @@ public class User {
     private Double weekly_schedule;
     private Long manager_id;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(
             name="user_role",
             joinColumns = {@JoinColumn(name="user_id", referencedColumnName = "id")},
