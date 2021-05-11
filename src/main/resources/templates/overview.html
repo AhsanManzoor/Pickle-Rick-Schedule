@@ -17,7 +17,7 @@
     <div class="main-bg"></div>
     <div layout:fragment="content" class="main-overview">
         <header class="header">
-            <img class="logo" th:src="@{images/logo.png}">
+            <img class="logo" th:src="@{images/logo-no-bg.png}">
         </header>
         <div th:replace="navigation :: navigation"></div>
         <div class="main-overview-page">
@@ -28,17 +28,25 @@
                     <div class="card-body">
                         <h3 class="section-title">Employees</h3>
                         <hr>
+                        <div class="section-content">
+                            <!-- ADD SECTION CONTENT HERE-->
+                            <iframe src="users"></iframe>
+                        </div>
                     </div>
-                    <div class="section-content">
-                        <!-- ADD SECTION CONTENT HERE-->
-                        <iframe src="users"></iframe>
-
+                </div>
+                <div class="section card shadow">
+                    <div class="card-body">
+                        <h3 class="section-title">My work Overview</h3>
+                        <hr>
+                        <div class="section-content">
+                            <iframe src="allWork"></iframe>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <footer class="footer-basic">
-            <p class="copyright">Pickle_Rick TIme Recorder © 2021</p>
+            <p class="copyright">Pickle_Rick Time Recorder © 2021</p>
         </footer>
     </div>
 </div>

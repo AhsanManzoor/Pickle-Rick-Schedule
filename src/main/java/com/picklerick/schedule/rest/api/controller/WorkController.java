@@ -1,7 +1,6 @@
 package com.picklerick.schedule.rest.api.controller;
 
 import com.picklerick.schedule.rest.api.model.Work;
-import com.picklerick.schedule.rest.api.model.WorkList;
 import com.picklerick.schedule.rest.api.repository.WorkRepository;
 import com.picklerick.schedule.rest.api.security.CustomUserDetails;
 import org.springframework.http.MediaType;

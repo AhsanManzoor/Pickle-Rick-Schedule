@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Overview</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" th:href="@{css/bootstrap/bootstrap.min.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Bitter:400,700}">
+    <link type="text/css" rel="stylesheet"
+          th:href="@{https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700}">
+    <link type="text/css" rel="stylesheet" th:href="@{css/main.css}"/>
+</head>
+<body>
+<div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+    <table class="table my-0" id="dataTable">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Start At</th>
+            <th>End At</th>
+            <!-- <th>Actual</th>
+             <th>Over/Under time</th>-->
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="work: ${allWork}">
+            <td th:text="${work.date}">Date</td>
+            <td th:text="${work.start_at}">Start At</td>
+            <td th:text="${work.end_at}">End At</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
