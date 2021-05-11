@@ -3,13 +3,17 @@ package com.picklerick.schedule.rest.api.controller;
 import com.picklerick.schedule.rest.api.model.Role;
 import com.picklerick.schedule.rest.api.model.User;
 import com.picklerick.schedule.rest.api.repository.UserRepository;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
+import java.security.Principal;
 import java.util.Map;
 
 
@@ -42,8 +46,14 @@ public class UserController {
      * @param id the id of the user to retrieve
      */
     @GetMapping("/users/{id}")
-    User one(@PathVariable Long id) throws Exception {
-        return repository.findById(id).orElseThrow(()-> new Exception());
+    User one(@PathVariable Long id, Principal principal) throws Exception {
+
+        User user = repository.findById(id).orElseThrow(()-> new Exception());
+
+        if (principal.getName().equals(user.getEmail())|| checkIsAdmin(principal)){
+            return user;
+        }
+        throw new AccessDeniedException("Unauthorized - ALARM - INTRUDER - CALL SECURITY - I NEED A DRINK");
     }
 
     /**
@@ -109,6 +119,21 @@ public class UserController {
     @PostMapping("/users")
     public User addNewUser(@RequestBody User newUser) {
         return repository.save(newUser);
+    }
+
+    /**
+     * This method is used if we need to know if a user access his own information or if the user is an admin then allow access.
+     * @author Clelia
+     * */
+    private boolean checkIsAdmin(Principal principal) {
+        Authentication authentication = (Authentication) principal;
+        boolean isAdmin = false;
+        for(GrantedAuthority auth :authentication.getAuthorities()) {
+            if(auth.getAuthority().equals("ROLE_ADMIN")) {
+                isAdmin = true;
+            }
+        }
+        return isAdmin;
     }
 
     //------------------------- Not in scope yet ----------------------------
