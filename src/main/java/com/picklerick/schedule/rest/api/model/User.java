@@ -3,6 +3,7 @@ package com.picklerick.schedule.rest.api.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.List;
@@ -25,7 +26,7 @@ public class User {
     private Double weekly_schedule;
     private Long manager_id;
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch= FetchType.EAGER)
     @JoinTable(
             name="user_role",
             joinColumns = {@JoinColumn(name="user_id", referencedColumnName = "id")},
@@ -175,7 +176,7 @@ public class User {
      * Generated Set the different roles a user can have
      * @author Clelia
      *
-     * @param roles displays the roles a user has -> what access they should be grantedr*/
+     * @param roles displays the roles a user has -> what access they should be granted*/
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
@@ -195,6 +196,8 @@ public class User {
     public void setLogin(Login login) {
         this.login = login;
     }
+
+
 
     @Override
     public String toString() {
