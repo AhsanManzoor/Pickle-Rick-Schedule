@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
@@ -128,7 +126,7 @@ public class WorkController {
      * Edit new Work Entity after Login
      * @author Yomiyou
      * TODO: new entry should only be automatically done by login and a separate method should update that entry when user loggs out.
-     * */
+     * @return*/
    /* @ModelAttribute("work")
     @PostMapping ("/work")
     public Work addWorkSubmit(@RequestBody Work newWork, Model model) {
@@ -139,14 +137,24 @@ public class WorkController {
     //return repository.save(newWork);
     //}
 
-    @ModelAttribute("work")
+    // @ModelAttribute("work")
+    /**
+     * edit Work entry of work_id entry
+     * @author Clelia
+     * */
+    @CrossOrigin(origins = "http://localhost:8080")
     @PostMapping ("/work/{id}")
-    public Work editWork(@RequestBody Work newWork, @PathVariable Long id, Model model) {
-        model.addAttribute("work", newWork);
-        Work work = repository.findById(id).get();
-        work.setStart_at(newWork.getStart_at());
-        work.setEnd_at(newWork.getEnd_at());
-        return repository.save(newWork);
+    public Work editWork(@RequestBody List<Work> updatedWork, @PathVariable Long id, Model model) {
+        model.addAttribute("work", updatedWork);
+        Work oldWork = repository.findById(id).get();
+        return repository.findById(id)
+                .map(w -> {
+                    updatedWork.forEach((update) -> {
+                        w.setStart_at(update.getStart_at());
+                        w.setEnd_at(update.getEnd_at());
+                    });
+                    return repository.save(w);
+                }).orElseGet(()-> repository.save(oldWork));
     }
     /**
      * Get information of the current work day
