@@ -2,60 +2,54 @@
 package com.picklerick.schedule.rest.api.model;
 
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.List;
 
 
-/**
- * User
- * <p>
- * A user form User
- *
- */
 @Entity
 @Table(name="user")
 public class User {
-    @Id
-    @Column(name= "user_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String firstname;
+
+    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
     private String lastname;
+    private String firstname;
     private String email;
-    private String password;
-    private Double weekly_schedule;
-    private Long manager_id;
-    private boolean enabled;
-    private Long role_id;
-    private static String role_name;
+    @Column(name = "weekly_schedule")
+    private Double weeklySchedule;
+    @Column(name = "manager_id")
+    private Long managerId;
 
+    @ManyToMany(cascade = CascadeType.MERGE, fetch= FetchType.EAGER)
+    @JoinTable(
+            name="user_role",
+            joinColumns = {@JoinColumn(name="user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")}
+    )
+    private List<Role> roles;
 
-    /**
-     * Class constructor
-     * @author Clelia
-     * */
-    public User(){}
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    @JsonIgnore
+    private Login login;
 
     /**
      * Class constructor with user specifications
-     * @author Clelia & Stefan
+     * @author Clelia
      * */
-    public User(String lastname, String firstname, String email, String password, Double weekly_schedule, Long manager_id, Boolean enabled, Long role_id, String role_name) {
+    public User(String lastname, String firstname, String email, Double weeklySchedule, Long managerId, List<Role> roles, Login login) {
         this.lastname = lastname;
         this.firstname = firstname;
         this.email = email;
-        this.password = password;
-        this.weekly_schedule = weekly_schedule;
-        this.manager_id = manager_id;
-        this.enabled = enabled;
-        this.role_id = role_id;
-        this.role_name = role_name;
-
+        this.weeklySchedule = weeklySchedule;
+        this.managerId = managerId;
+        this.roles = roles;
+        this.login = login;
     }
 
-
+    public User() {
+    }
 
     /**
      * Generated Get method for id
@@ -119,7 +113,6 @@ public class User {
         return email;
     }
 
-
     /**
      * Generated Set method for Email
      * @author Clelia
@@ -130,24 +123,12 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword(){
-    return password;
-    }
-    public void setPassword(String password){
-        this.password = password;
-    }
-    public Boolean isEnabled(){
-        return enabled;
-    }
-    public void setEnabled(boolean enabled){
-        this.enabled = enabled;
-    }
     /**
      * Generated Get method for weekly_schedule
      * @author Clelia
      * */
-    public Double getWeekly_schedule() {
-        return weekly_schedule;
+    public Double getWeeklySchedule() {
+        return weeklySchedule;
     }
 
     /**
@@ -155,26 +136,61 @@ public class User {
      * @author Clelia
      *
      * @param weekly_schedule time estimate to work*/
-    public void setWeekly_schedule(Double weekly_schedule) {
-        this.weekly_schedule = weekly_schedule;
+    public void setWeeklySchedule(Double weekly_schedule) {
+        this.weeklySchedule = weekly_schedule;
     }
     /**
      * Generated Get method for user's manager id
      * @author Clelia
      * */
-    public Long getManager_id() {
-        return manager_id;
+    public Long getManagerId() {
+        return managerId;
     }
 
     /**
      * Generated Set method for manager id
      * @author Clelia
      *
-     * @param manager_id refers to the user's manager*/
-    public void setManager_id(Long manager_id) {
-        this.manager_id = manager_id;
+     * @param managerId refers to the user's manager*/
+    public void setManagerId(Long managerId) {
+        this.managerId = managerId;
     }
 
+    /**
+     * Generated Get method to see what roles a user has
+     * @author Clelia
+     * */
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    /**
+     * Generated Set the different roles a user can have
+     * @author Clelia
+     *
+     * @param roles displays the roles a user has -> what access they should be granted*/
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    /**
+     * Generate get method for Login of user
+     * @author Clelia
+     * */
+    public Login getLogin() {
+        return login;
+    }
+
+    /**
+     * Generated set method for Login of user
+     * @author Clelia
+     * */
+    public void setLogin(Login login) {
+        this.login = login;
+    }
+
+
+/*
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -197,17 +213,22 @@ public class User {
             sb.append(']');
         }
         return sb.toString();
-    }
-
-    @Override
+    }*/
+    /**
+     * Generated set method for Login of user
+     * @author Clelia
+     * */
+   /* @Override
     public int hashCode() {
         int result = 1;
         result = ((result* 31)+((this.firstname == null)? 0 :this.firstname.hashCode()));
         result = ((result* 31)+((this.id == null)? 0 :this.id.hashCode()));
         result = ((result* 31)+((this.lastname == null)? 0 :this.lastname.hashCode()));
         return result;
-    }
-
+    }*/
+    /**
+     * @author Clelia
+     * *//*
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -216,36 +237,8 @@ public class User {
         if (!(other instanceof User)) {
             return false;
         }
-       User rhs = ((User) other);
-        return this.firstname.equals(rhs.firstname) && this.id.equals(rhs.id) && this.lastname.equals(rhs.lastname);
-    }
-
-    /**
-     * Generated Set method for id
-     * @author Stefan & Ahsan
-     *
-     * @param role_id role_id to set
-     * */
-    public void setRole_id(Long role_id){this.role_id = role_id;}
-
-    /**
-     * Generated Set method for Role_name
-     * @author Stefan & Ahsan
-     *
-     * @param role_name role_name to set
-     * */
-    public void setRole_name(String role_name){this.role_name = role_name;}
-    /**
-     * Generated Get method for user's role_id
-     * @author Stefan & Ahsan
-     * */
-
-    public Long getRole_id(){return role_id;}
-    /**
-     * Generated Get method for user's role_name
-     * @author Stefan & Ahsan
-     * */
-    public static String getRole_name(){return role_name;}
-
+        User rhs = ((User) other);
+        return (((Objects.equals(this.firstname, rhs.firstname))&&(Objects.equals(this.id, rhs.id)))&&(Objects.equals(this.lastname, rhs.lastname)));
+    }*/
 
 }

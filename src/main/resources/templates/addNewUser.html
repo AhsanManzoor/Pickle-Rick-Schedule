@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Overview</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" th:href="@{css/bootstrap/bootstrap.min.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Bitter:400,700}">
+    <link type="text/css" rel="stylesheet"
+          th:href="@{https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700}">
+    <link type="text/css" rel="stylesheet" th:href="@{css/main.css}"/>
+</head>
+<body>
+<div id="addUserContent">
+    <form class="form" method="post" enctype="multipart/form-data" th:action="@{/user}" th:object="${user}">
+        <div class="form-group">
+            <div class="form-group">
+                <label>First Name</label>
+                <input class="form-control" type="text" placeholder="John"  th:field="${user.firstname}" required>
+            </div>
+            <div class="form-group">
+                <label>Last Name</label>
+                <input class="form-control" type="text" placeholder="Doe" th:field="${user.lastname}" required>
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input class="form-control" type="email" placeholder="user@example.com" th:field="${user.email}" required>
+            </div>
+            <div class="form-group">
+                <label>Scheduled Time</label>
+                <input class="form-control" type="number" th:field="${user.weeklySchedule}" required max="60" min="1">
+            </div>
+        </div>
+        <div class="form-group" id="temp-pw-field">
+            <div class="form-group">
+                <label>Temporary Password</label>
+                <input class="form-control" id="password-temp" name="password-temp" th:field="${user.login.password}" type="password"  required>
+            </div>
+            <div class="form-group">
+                <label>Confirm Password</label>
+                <input class="form-control" id="confirm_password" name="confirm-password" type="password" th:field="${user.login.password}"   data-rule-equalTo="#password-temp" required>
+            </div>
+            <span id="message"></span>
+        </div>
+        <div class="form-group">
+            <label for="role">Choose Role</label>
+            <select class="form-control selectpicker" th:field="*{roles}" id="role" required>
+                <option value="">Nothing selected</option>
+                <option th:each="role : ${roles}"
+                        th:value="${role.id}"
+                        th:text="${role.name}">
+                </option>
+            </select>
+        </div>
+        <div class="form-group"><button class="btn btn-primary border rounded-pill" type="submit" id="save-button">Save</button></div>
+    </form>
+</div>
+<script th:src="@{js/jquery.min.js}"></script>
+<script>
+    // @author Clelia
+    $(document).ready(function () {
+        $('#confirm_password, #password-temp').keyup(
+            function (){
+                if ($('#password-temp').val() == $('#confirm_password').val()) {
+                    $('#message').html('Matching').css('color', 'green');
+                    $('#save-button').prop("disabled",false);
+                } else{
+                    $('#message').html('Not Matching').css('color', 'red');
+                    $('#save-button').prop("disabled",true);
+                }
+            }
+        );
+    });
+
+</script>
+</body>
+</html>

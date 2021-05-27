@@ -1,0 +1,19 @@
+<div th:fragment="navigation" class="navigation shadow">
+    <button class="btn btn-outline-primary">
+        <a th:href="@{/overview}">Personal Overview</a>
+    </button>
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <button class="btn btn-outline-primary" >
+            <a th:href="@{/overviewAdmin}">Employees Overview</a>
+        </button>
+    </div>
+    <button class="btn btn-outline-primary">
+        <a th:href="@{/schedule}">Schedule</a>
+    </button>
+    <button class="btn btn-outline-primary">
+        <a th:href="@{/settings}">Settings</a>
+    </button>
+    <button class="btn btn-outline-primary" >
+        <a th:href="@{/logout}">Logout</a>
+    </button>
+</div>

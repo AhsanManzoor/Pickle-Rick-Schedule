@@ -1,61 +1,66 @@
-package com.picklerick.schedule.rest.api.model;
+package com.picklerick.schedule.rest.api.security;
 
-import java.util.*;
+import com.picklerick.schedule.rest.api.model.Role;
+import com.picklerick.schedule.rest.api.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.management.relation.RelationNotification;
-import javax.management.relation.Role;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
-
-public class User_details implements UserDetails {
+/**
+ * Custom UserDetails class to allow access to the userId
+ * in the @PreAuthorize annotation.
+ */
+public class CustomUserDetails implements UserDetails {
 
     private User user;
 
-    public User_details(User user) {
+    public CustomUserDetails(User user) {
         this.user = user;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public long getUserId() {
+        return user.getId();
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        String roles = user.getRole_name();
+        List<GrantedAuthority> authorities = new ArrayList<>();
 
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        for (int i = 0; i < authorities.size(); i ++) {
-
-            authorities.add(new SimpleGrantedAuthority(User.getRole_name()));
+        for (Role role: user.getRoles()) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
         }
+
         return authorities;
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return user.getLogin().getPassword();
     }
 
     @Override
     public String getUsername() {
-        return null;
-    }
-
-
-
-    public String getEmail() {
         return user.getEmail();
     }
 
-    public Long getId() {
-        return user.getId();
-    }
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
+
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
+
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
@@ -63,6 +68,6 @@ public class User_details implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user.isEnabled();
+        return true;
     }
 }

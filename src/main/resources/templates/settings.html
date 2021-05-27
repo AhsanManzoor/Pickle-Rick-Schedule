@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorator="layout">
+<head>
+    <title>Settings</title>
+    <link type="text/css" rel="stylesheet" th:href="@{css/bootstrap/bootstrap.min.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{css/Login-Form-Dark.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Bitter:400,700}">
+    <link type="text/css" rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700}">
+    <link type="text/css" rel="stylesheet" th:href="@{css/main.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{css/login.css}"/>
+
+
+</head>
+<body>
+<div class="main">
+            <div class="main-bg"></div>
+            <div layout:fragment="content" ></div>
+       <div class="main-overview">
+                    <header class="header">
+                        <img class="logo" th:src="@{images/logo-no-bg.png}">
+                    </header>
+            <div th:replace="navigation :: navigation"></div>
+            <div class="main-overview-page">
+                <div th:if="${session.m1}" id="success-alert" class="container alert alert-success my-2 text-center" role="alert">
+                    <span th:text="${session.m1}"></span>
+                </div>
+                <div th:if="${session.m2}" id="fail-alert" class="container alert alert-danger my-2 text-center" role="alert">
+                    <span th:text="${session.m2}"></span>
+                </div>
+                <h2 class="page-title">Settings</h2>
+                    <div class="login-box login-dark" >
+
+                                <form class="credential-input " th:action="@{/reset_Password}" method="post" >
+                                <div class="login-box login-dark">
+                                    <div class="section-title " style="color: black" text="text-centre"><strong>Change Password</strong></div>
+                                <div>
+                                <input id="oldPassword" name="oldPassword" type="Password" class="form-control " placeholder="Old Password"/>
+                                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                                </div>
+                                <div>
+                                <input id="newPassword" name="newPassword" type="Password" class="form-control"  placeholder="New Password"/>
+                                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                                </div>
+                                <div class="form-group">
+                                <button id="btn" class="btn btn-primary" type="submit">Reset Password</button>
+                                </div>
+
+                            </div>
+                            </form>
+                  </div>
+
+            </div>
+
+           <footer class="footer-basic">
+               <p class="copyright">Pickle_Rick Time Recorder © 2021</p>
+           </footer>
+
+       </div>
+</div>
+<script th:src="@{js/jquery.min.js}"></script>
+<script th:src="@{js/bootstrap/bootstrap.min.js}"></script>
+<script th:src="@{js/clock.js}"></script>
+<script>
+    $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+        $("#success-alert").slideUp(500);
+    });
+    $("#fail-alert").fadeTo(2000, 500).slideUp(500, function(){
+        $("#fail-alert").slideUp(500);
+    });
+</script>
+</body>
+</html>

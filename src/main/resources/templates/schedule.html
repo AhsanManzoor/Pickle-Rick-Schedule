@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorator="layout">
+<head>
+    <title>Schedule</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" rel="stylesheet" th:href="@{css/bootstrap/bootstrap.min.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Bitter:400,700}">
+    <link type="text/css" rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700}">
+    <link type="text/css" rel="stylesheet" th:href="@{css/main.css}"/>
+</head>
+<body>
+<div class="main">
+    <div class="main-bg"></div>
+    <div layout:fragment="content" class="main-overview">
+        <header class="header">
+            <img class="logo" th:src="@{images/logo-no-bg.png}">
+        </header>
+        <div th:replace="navigation :: navigation"></div>
+        <div class="main-overview-page">
+            <div  class="page-content">
+                <h2 class="page-title">Schedule</h2>
+
+                <!--NEW SECTION-->
+                <div class="section card shadow">
+                    <div class="card-body">
+                        <h3 class="section-title">Add worked time</h3>
+                        <iframe src="work"></iframe>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <footer class="footer-basic">
+            <p class="copyright">Pickle_Rick TIme Recorder © 2021</p>
+        </footer>
+    </div>
+</div>
+<script th:src="@{js/jquery.min.js}"></script>
+<script th:src="@{js/bootstrap/bootstrap.min.js}"></script>
+</body>
+</html>
+

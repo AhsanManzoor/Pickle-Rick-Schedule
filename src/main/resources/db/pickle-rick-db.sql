@@ -4,96 +4,109 @@ create database pickle_rick_db;
 
 /* ! Coded by Stefan */
 create table pickle_rick_db.user(
-    user_id int auto_increment primary key,
-    firstname varchar (30),
-    lastname varchar (30),
-    username varchar (30),
-    email varchar (50),
-    password varchar(64);
-    weekly_schedule decimal,
-    manager_id int,
-    role_id long,
-    role_name varchar(30),
-    foreign key (role_id) references pickle_rick_db.Role(id),
-    foreign key (manager_id) references pickle_rick_db.User(id)
+                                    id int NOT NULL AUTO_INCREMENT primary key,
+                                    firstname varchar (30),
+                                    lastname varchar (30),
+                                    email varchar (50),
+                                    weekly_schedule double,
+                                    manager_id int,
+                                    foreign key (manager_id) references pickle_rick_db.User(id)
 );
 
-/* ! Coded by Stefan & Clelia*/
-create table pickle_rick_db.project(
-   id int auto_increment primary key,
-   title varchar(100),
-   description varchar(600),
-   created_by int,
-   foreign key (created_by) references pickle_rick_db.user(id)
+/* ! Coded by Clelia*/
+create table pickle_rick_db.role(
+                                    id int NOT NULL AUTO_INCREMENT primary key,
+                                    name VARCHAR(50)
+);
+
+/* ! Coded by Clelia*/
+create table pickle_rick_db.user_role(
+                                         user_id int NOT NULL,
+                                         role_id int NOT NULL,
+                                         foreign key(user_id) references pickle_rick_db.user(id),
+                                         foreign key(role_id) references pickle_rick_db.role(id)
 );
 
 /* ! Coded by Stefan & Clelia */
 create table pickle_rick_db.login(
-  user_id int primary key,
-  password varchar (1000)
-);
-
-/* ! Coded by Stefan */
-create table pickle_rick_db.employeeproject(
-   user_id int,
-   project_id int,
-   foreign key (user_id) references pickle_rick_db.user(id),
-   foreign key (project_id) references pickle_rick_db.project(id)
+                                     user_id int primary key,
+                                     password varchar (1000),
+                                     foreign key(user_id) references pickle_rick_db.user(id)
 );
 
 /* ! Coded by Stefan&Clelia */
 create table pickle_rick_db.work(
-    id int auto_increment primary key,
-    date date,
-    start_at time,
-    end_at time,
-    user_id int,
-    project_id int,
-    foreign key (user_id) references pickle_rick_db.user(id),
-    foreign key (project_id) references pickle_rick_db.project(id)
+                                    id int NOT NULL AUTO_INCREMENT primary key,
+                                    date date,
+                                    start_at time,
+                                    end_at time,
+                                    worked_time double,
+                                    scheduled_time double,
+                                    time_difference double,
+                                    user_id int,
+                                    proceeded boolean,
+                                    foreign key (user_id) references pickle_rick_db.user(id)
 );
+/* ! Coded by Stefan */
+create table pickle_rick_db.working_Day(
+                                     id int NOT NULL AUTO_INCREMENT primary key,
+                                    date date,
+                                    worked_time double,
+                                    scheduled_time double,
+                                    daily_difference double,
+                                    user_id int,
+                                    proceeded_week boolean,
+                                    proceeded_month boolean,
+                                    foreign key (user_id) references pickle_rick_db.user(id)
+
+
+);
+/* ! Coded by Stefan */
+create table pickle_rick_db.working_Month(
+ id int NOT NULL AUTO_INCREMENT primary key,
+                                    start_Date date,
+                                    end_Date date,
+                                    worked_time double,
+                                     scheduled_time double,
+                                     monthly_difference double,
+                                    user_id int,
+                                    foreign key (user_id) references pickle_rick_db.user(id)
+
+
+);
+/* ! Coded by Stefan */
+create table pickle_rick_db.working_Week(
+ id int NOT NULL AUTO_INCREMENT primary key,
+                                    start_Date date,
+                                    worked_time double,
+                                    scheduled_time double,
+                                    weekly_difference double,
+                                    user_id int,
+                                    foreign key (user_id) references pickle_rick_db.user(id)
+
+);
+/* ! "Coded" by Stefan */
+INSERT INTO pickle_rick_db.user VALUES (1,'Sven', 'Salzig', 'sven@gmail.com', 42, null );
+INSERT INTO pickle_rick_db.user VALUES (2,'Eva', 'Svenson', 'eva@gmail.com', 42, 1);
+INSERT INTO pickle_rick_db.user VALUES (3,'Lilly', 'Peterson', 'Lilly@gmail.com', 40, 2);
 
 /* ! "Coded" by Stefan */
-INSERT INTO pickle_rick_db.user VALUES (1,'Sven', 'Salzig', 'sven.salzig@fhnw', 'sven@gmail.com', 42, 1);
-INSERT INTO pickle_rick_db.user VALUES (2,'Eva', 'Svenson', 'eva.svenson@fhnw','eva@gmail.com', 42, 1);
-INSERT INTO pickle_rick_db.user VALUES (3,'Lilly', 'Peterson','lilly.peterson@fhnw', 'Lilly@gmail.com', 40, 2);
+INSERT INTO pickle_rick_db.login VALUES (1, '$2y$12$k7HxqGYsiHoY89A4gAXeqOLHodLJ/OrfVuJR/jy7XwSWlZ6vS.dJi');
+INSERT INTO pickle_rick_db.login VALUES (2, '$2y$12$k7HxqGYsiHoY89A4gAXeqOLHodLJ/OrfVuJR/jy7XwSWlZ6vS.dJi');
+INSERT INTO pickle_rick_db.login VALUES (3, '$2y$12$k7HxqGYsiHoY89A4gAXeqOLHodLJ/OrfVuJR/jy7XwSWlZ6vS.dJi');
 
+/* ! Coded by Clelia */
+insert into pickle_rick_db.role values(1,'ROLE_ADMIN');
+insert into pickle_rick_db.role values(2,'ROLE_USER');
 
-/* ! "Coded" by Ahsan */
-create table pickle_rick_db.roles(
-  role_id int(11) Not Null auto_increment,
-  role_name varchar(45) Not Null,
-  primary key (id)
-);
-
-/* ! "Coded" by Ahsan */
-CREATE TABLE pickle_rick_db.users_roles (
-  user_id int(11) NOT NULL,
-  role_id int(11) NOT NULL,
-  KEY user_fk_idx (user_id),
-  KEY role_fk_idx (role_id),
-  CONSTRAINT role_fk FOREIGN KEY (role_id) REFERENCES roles (role_id),
-  CONSTRAINT user_fk FOREIGN KEY (user_id) REFERENCES users (user_id)
-);
-
-/* ! "Coded" by Ahsan */
-INSERT INTO pickle_rick_db.roles (name) VALUES (Employee);
-INSERT INTO pickle_rick_db.roles (name) VALUES (Manager);
-INSERT INTO pickle_rick_db.roles (name) VALUES (ADMIN);
-
-/* ! "Coded" by Stefan */
-insert into pickle_rick_db.project values (1, 'Peace', 'Enhancing peace on the world by fighting poverty',1);
-insert into pickle_rick_db.project values (2, 'Social justice', 'Enhancing social justice',2);
-insert into pickle_rick_db.project values (3, 'Saving the planet', 'Saving the planet, protecting flora and fauna world wide',3);
-
-/* ! "Coded" by Stefan */
-insert into pickle_rick_db.employeeproject values(1, 1);
-insert into pickle_rick_db.employeeproject values(2, 2);
-insert into picknle_rick_db.employeeproject values(2, 2);
-
+/* ! Coded by Clelia */
+insert into pickle_rick_db.user_role values(1,2);
+insert into pickle_rick_db.user_role values(2,1);
+insert into pickle_rick_db.user_role values(3, 2);
 
 /* ! "Coded" by Stefan & Clelia*/
 DROP USER IF EXISTS 'pickle'@'localhost';
 CREATE USER 'pickle'@'localhost' IDENTIFIED BY 'pickleRICKPW2021';
 USE pickle_rick_db;
 GRANT ALL PRIVILEGES ON pickle_rick_db.* TO 'pickle'@'localhost';
+

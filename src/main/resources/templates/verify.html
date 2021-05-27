@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorator="layout">
+<head>
+    <title>Log in</title>
+    <link type="text/css" rel="stylesheet" th:href="@{css/Login-Form-Dark.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{css/bootstrap/bootstrap.min.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Bitter:400,700}">
+    <link type="text/css" rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700}">
+    <link type="text/css" rel="stylesheet" th:href="@{css/clock.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{css/main.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{css/login.css}"/>
+
+</head>
+<body xmlns:layout="http://www.w3.org/1999/xhtml">
+<div class="main">
+    <div class="main-bg"></div>
+    <div class="main-overview-index">
+        <header class="header">
+            <img class="logo" th:src="@{images/logo-no-bg.png}">
+        </header>
+        <div layout:fragment="content" class="login-window">
+            <div class="alert alert-success" style=" margin: auto" role="alert"> Please check your email for the verification token! </div>
+            <div th:if="${session.message}" class="container">
+                <div  class="alert alert-danger my-2 text-center" role="alert">
+                    <span th:text="${session.warn}"></span>
+                </div>
+                <div  class="alert alert-success my-2 text-center" role="alert">
+                <span th:text="${session.ps}"></span>
+            </div>
+                <th:block th:text = "${#session.removeAttribute('message')}"></th:block>
+            </div>
+            <h2>Token Verification Form</h2>
+            <div class="login-box login-dark">
+
+                <form class="text-center" method="post" action="" th:action="@{/tokenVerify}">
+                    <div class="form-group ">
+                        <input required="required" type="text" class="form-control" name="token" placeholder="Enter verification Token"/>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn-primary btn-block" type="submit">Verify</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer class="footer-basic">Pickle_Rick Time Recorder © 2021</footer>
+</div>
+
+<script th:src="@{js/jquery.min.js}"></script>
+<script th:src="@{js/bootstrap/bootstrap.min.js}"></script>
+<script th:src="@{js/clock.js}"></script>
+</body>
+</html>

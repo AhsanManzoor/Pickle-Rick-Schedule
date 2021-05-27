@@ -14,37 +14,30 @@
 </head>
 <body>
 <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-    <table class="table my-0" id="dataTable">
+    <table class="table my-0" id="daTable">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Scheduled</th>
-            <th>Actual</th>
-            <th>Over/Under time</th>
+            <th>First day of month</th>
+            <th>Employee Id</th>
+            <th>Hours worked in month</th>
+            <th>Hours expected to work in month</th>
+            <th>Difference</th>
+            <!-- <th>Actual</th>
+             <th>Over/Under time</th>-->
         </tr>
         </thead>
         <tbody>
-        <tr th:each="user: ${users}">
-            <td th:text="${user.lastname}">Test</td>
-            <td th:text="${user.email}">Email</td>
-            <td th:text="${user.weeklySchedule}">schedule</td>
-            <td th:text="${user.weeklySchedule}">schedule</td>
-            <td th:text="${user.lastname}">Test</td>
+        <tr th:each="work:${monthlyWorkAdmin}">
+            <td th:text="${work.startDate}">First day of month</td>
+            <td th:text="${work.user_id}">Employee Id</td>
+            <td th:text="${work.workedTime}">Hours worked in month</td>
+            <td th:text="${work.scheduledTime}">Hours expected to work in month</td>
+            <td th:text="${work.monthlyDifference}">Difference</td>
+
+
+
         </tr>
         </tbody>
     </table>
-    <button name="addUserButton" onclick="loadAddUserForm()"> Add new Employee </button>
 </div>
-<div id="target"></div>
 </body>
-<script th:src="@{js/jquery.min.js}"></script>
-<script>
-    function loadAddUserForm() {
-        const userList= parent.document.getElementById('iframe-all-users')
-        const userForm = document.createElement('iframe');
-        userForm.setAttribute('src', 'user');
-        userList.replaceWith(userForm);
-    }
-</script>
-</html>

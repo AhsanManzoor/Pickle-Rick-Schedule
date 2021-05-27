@@ -1,36 +1,43 @@
 package com.picklerick.schedule.rest.api.model;
 
 import javax.persistence.*;
-import java.sql.Time;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Table(name="work")
 public class Work {
     private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
-    private Date date;
-    private Time start_at;
-    private Time end_at;
-    private Long user_id;
-    private Long project_id;
+    private LocalDate date;
+    @Column(name="start_at")
+    private LocalTime startAt;
+    @Column(name="end_at")
+    private LocalTime endAt;
+    @Column(name="worked_time")
+    private Double workedTime;
+    @Column(name="user_id")
+    private Long userId;
+    @Column(name="proceeded")
+    private boolean proceeded;
 
     /**
      * Class constructor
      * @author Clelia
      * */
     public Work(){}
-
     /**
      * Class constructor with work specifications
      * @author Clelia
      * */
-    public Work(Date date, Time start_at, Time end_at, Long user_id) {
+    public Work(LocalDate date, LocalTime start_at, LocalTime end_at, Double workedTime, Long user_id, Boolean proceeded) {
         this.date = date;
-        this.start_at = start_at;
-        this.end_at = end_at;
-        this.user_id = user_id;
-    }
+        this.startAt = start_at;
+        this.endAt = end_at;
+        this.workedTime = workedTime;
+        this.userId = user_id;
+        this.proceeded = proceeded;
 
+    }
     /**
      * Generated Get method for work id
      * @author Clelia
@@ -43,9 +50,18 @@ public class Work {
      * Generated Get method for date
      * @author Clelia
      * */
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
+
+    public boolean getProceeded() {
+        return proceeded;
+    }
+    public void setProceeded(boolean proceeded){
+        this.proceeded = proceeded;
+    }
+
+
 
     /**
      * Generated Set method for date
@@ -53,16 +69,33 @@ public class Work {
      *
      * @param date
      * */
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
+    }
+    /**
+     * Generated Get method for workedTime
+     * @author Stefan
+     * */
+    public Double getWorkedTime() {
+        return workedTime;
+    }
+
+    /**
+     * Generated Set method for workedTime
+     * @author Stefan
+     *
+     * @param workedTime which logs the time
+     * */
+    public void setWorkedTime(Double workedTime) {
+        this.workedTime = workedTime;
     }
 
     /**
      * Generated Get method for start_at
      * @author Clelia
      * */
-    public Time getStart_at() {
-        return start_at;
+    public LocalTime getStart_at() {
+        return startAt;
     }
 
     /**
@@ -71,26 +104,26 @@ public class Work {
      *
      * @param start_at which logs the time
      * */
-    public void setStart_at(Time start_at) {
-        this.start_at = start_at;
+    public void setStart_at(LocalTime start_at) {
+        this.startAt = start_at;
     }
 
     /**
      * Generated Get method for end_at
      * @author Clelia
      * */
-    public Time getEnd_at() {
-        return end_at;
+    public LocalTime getEnd_at() {
+        return endAt;
     }
 
     /**
      * Generated set method for end_at
      * @author Clelia
      *
-     * @param end_at logs the end time
+     * @param endAt logs the end time
      * */
-    public void setEnd_at(Time end_at) {
-        this.end_at = end_at;
+    public void setEndAt(LocalTime endAt) {
+        this.endAt = endAt;
     }
 
     /**
@@ -98,7 +131,7 @@ public class Work {
      * @author Clelia
      * */
     public Long getUser_id() {
-        return user_id;
+        return userId;
     }
 
     /**
@@ -108,24 +141,6 @@ public class Work {
      * @param user_id sets the user id for work entry
      * */
     public void setUser_id(Long user_id) {
-        this.user_id = user_id;
-    }
-
-    /**
-     * Generated get method for project_id
-     * @author Clelia
-     * */
-    public Long getProject_id() {
-        return project_id;
-    }
-
-    /**
-     * Generated set method for project_id
-     * @author Clelia
-     *
-     * @param project_id sets project id which ties logged work to a project
-     * */
-    public void setProject_id(Long project_id) {
-        this.project_id = project_id;
+        this.userId = user_id;
     }
 }

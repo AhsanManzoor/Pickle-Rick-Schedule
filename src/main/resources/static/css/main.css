@@ -1,0 +1,117 @@
+.main {
+    position: center;
+}
+.bg-color{
+    background-color: white;
+    padding: 15px;
+    border-color: black;
+    max-width: 320px;
+}
+.main-bg{
+    background-image: url('../images/pickle-bg.png');
+    background-repeat: no-repeat;
+    position: absolute;
+    opacity: 30%;
+    inset: 0;
+    z-index: -1;
+}
+.main-overview {
+        display: grid;
+        grid-template-areas: 'header' 'page-content' 'navigation' 'footer';
+        min-height: 90vh;
+        grid-template-rows: min-content auto min-content min-content;
+        gap: 1rem;
+ }
+.navigation{
+        grid-area: navigation;
+        padding: 15px;
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        align-content: center;
+        background-color: white;
+        border-color: #707070;
+        box-shadow: 0 3px ;
+        width: 100%;
+
+}
+@media (min-width: 600px) {
+    .main-overview {
+        display: grid;
+        grid-template-areas: 'header navigation' 'page-content navigation' 'footer navigation';
+        min-height: 100vh;
+        grid-template-rows: min-content auto min-content;
+        gap: 1rem;
+        grid-template-columns: auto min-content;
+        padding-left: 1rem;
+
+    }
+    .navigation{
+        grid-area: navigation;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-content: center;
+        background-color: white;
+        border-color: #707070;
+        box-shadow: 0 3px ;
+        height: 100%;
+
+    }
+}
+iframe {
+    width: 100%;
+    padding: 5px;
+    border: none;
+    height: 40vh;
+}
+
+.main-overview-page {
+
+}
+
+.logo {
+    width: 20%;
+}
+.header {
+    grid-area: header;
+}
+
+.page-title {
+    text-align: center;
+}
+.page-content{
+    grid-area: page-content;
+}
+
+
+.btn-outline-primary {
+    border-color: #4881B8;
+    color: #020202;
+    border-width: medium;
+    padding: 32px;
+}
+
+.btn-outline-primary:hover {
+    background-color: #F0938D;
+    color: #020202;
+}
+a{
+    color: #020202;
+}
+hr{
+    border-top: 1px solid #F0938D;
+}
+
+.footer-basic{
+    grid-area: footer;
+    height: 10%;
+    width: 100%;
+    border-top: 1px;
+    position: center;
+    bottom: 0px;
+    left: 0px;
+    text-align: center;
+}
+

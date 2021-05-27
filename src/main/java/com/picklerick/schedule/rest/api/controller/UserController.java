@@ -1,9 +1,25 @@
 package com.picklerick.schedule.rest.api.controller;
 
+import com.picklerick.schedule.rest.api.model.Login;
 import com.picklerick.schedule.rest.api.model.User;
 import com.picklerick.schedule.rest.api.repository.UserRepository;
+import com.picklerick.schedule.rest.api.repository.WorkingWeekRepository;
+import com.picklerick.schedule.rest.api.security.CustomUserDetails;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.Map;
 
 
@@ -11,69 +27,67 @@ import java.util.Map;
 public class UserController {
 
     private final UserRepository repository;
+    private final WorkingWeekRepository workingWeekRepository;
+    @Autowired
+    private PasswordEncoder bCryptPasswordEncoder;
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
-    public UserController(UserRepository repository) {
+
+    public UserController(UserRepository repository, WorkingWeekRepository workingWeekRepository) {
         this.repository = repository;
+        this.workingWeekRepository = workingWeekRepository;
     }
 
 
-      /**
-     * Check whether User is Admin or not
-     * @author Stefan,
-     * @param id user-id
-     */
-
-      @GetMapping("/users/{id}")
-      // Assumption: Admin has role id 1
-      Boolean checkIfUserIsAdmin(@PathVariable Long id) throws Exception {
-          User u = repository.findById(id).orElseThrow(Exception::new);
-          if(u.getRole_id() == 1){
-              return true;
-          } else {
-              return false;}
-
-      }
-
-
-
-
-    /*
-     * Returns a user with a specific id
-     * @author: Clelia
-     *
-     * @param id the id of the user to retrieve
-     *
-     */
-
     /**
      * Returns a list with all users
+     * only an Admin user has access to all users
+     *
      * @author Clelia
      * */
+    @ModelAttribute("users")
+    @Secured("ROLE_ADMIN")
     @GetMapping("/users")
-    Iterable<User> all(){
+    Iterable<User> all(Model model){
+        LocalDate monday = LocalDate.now();
+        while (monday.getDayOfWeek() != DayOfWeek.MONDAY) {
+            monday = monday.minusDays(1);
+        }
+        model.addAttribute("users", repository.findAll());
+       /* model.addAttribute("work", workingWeekRepository.findAll());
+
+        ArrayList<Object> workSummary = null;
+
+        Iterable<User> allUser = repository.findAll();
+        for (User user : allUser ) {
+            WorkingWeek week = workingWeekRepository.findByStartDateAndUserId(monday, user.getId());
+
+            workSummary.add(week.getScheduledTime(), week.getWorkedTime(), week.getWeeklyDifference())
+        }*/
         return repository.findAll();
     }
 
     /**
      * Returns a user with a specific id
-     * @author Clelia
      *
+     * @author: Clelia
      * @param id the id of the user to retrieve
-     *
-    */
+     * */
+    @PreAuthorize("hasRole('ROLE_ADMIN') or authentication.principal.userId == #id")
     @GetMapping("/users/{id}")
-    User one(@PathVariable Long id) throws Exception {
-        return repository.findById(id).orElseThrow(Exception::new);
+    User one(@PathVariable Long id, Authentication authentication) throws AccessDeniedException {
+        return repository.findById(id).orElseThrow(()-> new AccessDeniedException("Unauthorized - Request"));
     }
 
     /**
      * Update a users information
-     * @author Clelia
      *
+     * @author: Clelia & Stefan
      * @param id id of user updating their information
-     */
+     * */
+    @Secured("ROLE_ADMIN")
     @PatchMapping("/users/{id}")
-    public User updateUser(@RequestBody Map<String, Object> userUpdates, @PathVariable Long id) {
+    public User updateUserAsAdmin(@RequestBody Map<String, Object> userUpdates, @PathVariable Long id) {
         User user = repository.findById(id).get();
         // Fetch User data from db and
         // go through all the possible options of change
@@ -82,90 +96,47 @@ public class UserController {
                 .map(u -> {
                     userUpdates.forEach(
                             (update, value)-> {
-                                switch (update){
-                                    case "firstname": u.setFirstname((String) value); break;
-                                    case "lastname": u.setLastname((String) value); break;
+                                switch (update) {
+                                    case "firstname":
+                                        u.setFirstname((String) value);
+                                        break;
+                                    case "lastname":
+                                        u.setLastname((String) value);
+                                        break;
+                                    case "email":
+                                        u.setEmail((String) value);
+                                        break;
+                                    case "weekly_schedule":
+                                        u.setWeeklySchedule((Double.parseDouble((String) value)));
+                                        break;
+                                    case "manager_id":
+                                        u.setManagerId((Long.parseLong((String) value)));
+                                        break;
+                                    // TODO solve role issue + create such a method for normal users
                                 }
                             }
                     );
                     return repository.save(u);
                 }).orElseGet(() -> repository.save(user));
-    }
 
-    /**
-     * Get all users created by admin
-     * @author Clelia
-     *
-     * @param id admin-id
-     */
-    @GetMapping("/users/admin/{id}")
-    Iterable<User> allByAdmin(@PathVariable Long id) {
-        //TODO find all users created by admin
-        return repository.findAll();
     }
-
+    
     /**
      * Create new user
-     * @author Clelia
-     * */
-    //TODO check if user is_admin
-    @PostMapping("/users")
-    public User addNewUser(@RequestBody User newUser) {
-        return repository.save(newUser);
-    }
-
-    //------------------------- Not in scope yet ----------------------------
-    /**
-     * Change setting of a user
-     * @author Clelia
      *
-     * @param id user id
+     * @author Clelia
      * */
-    //TODO check if user is_admin
-    //TODO does not update email, weekly_schedule, manager_id or is_admin, why?
-    @PatchMapping("/users/{id}")
-    public User changeUserData(@PathVariable Long id, @RequestBody Map<String, Object> userUpdates){
-        // get saved user as fallback option
-        User user = repository.findById(id).get();
-
-        // Fetch User data from db and
-        // go through all the possible options of change
-        // and save the changes to the user
-        return repository.findById(id)
-                .map(u -> {
-                    userUpdates.forEach(
-                            (update, value) -> {
-                                switch (update){
-                                    case "firstname": u.setFirstname((String) value); break;
-                                    case "lastname": u.setLastname((String) value); break;
-                                    case "email": u.setEmail((String) value); break;
-                                    case "weekly_schedule": u.setWeekly_schedule((Double) value); break;
-                                    case "manager_id": u.setManager_id((Long) value); break;
-
-                                }
-                            });
-                    return repository.save(u);
-                })
-                .orElseGet(()-> repository.save(user));
+    @Secured("ROLE_ADMIN")
+    @PostMapping("/user")
+    public void addNewUser(@ModelAttribute User user, Model model, Authentication authentication, HttpServletResponse response) throws IOException {
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        user.setManagerId(userDetails.getUserId());
+        Login login = user.getLogin();
+        login.setUser(user);
+        login.setPassword(this.bCryptPasswordEncoder.encode(login.getPassword()));
+        model.addAttribute("user", user);
+        repository.save(user);
+        LOGGER.info("New user "+ user.getFirstname()+" "+ user.getLastname()+" was saved to the database");
+        response.sendRedirect("/users");
     }
-    /*
-
-    This is for test purposes
-       @PostMapping("/user")
-    public User newUser(@RequestBody User newUser) {
-        return repository.save(newUser);
-    }
-
-    @PatchMapping("/user/{id}/checkin")
-    public User checkinUser(@RequestBody User user, @PathVariable Long id) {
-        return repository.findById(id)
-        .map(u ->{
-            user.setCheckinDate(new Date());
-            return repository.save(u);
-        })
-                .orElseGet(() -> repository.save(user));
-    }*/
-
 }
-
-
