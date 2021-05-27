@@ -1,0 +1,78 @@
+2021-05-27 17:49:30.647  INFO 35344 --- [main] c.p.s.ScheduleApplication                : Starting ScheduleApplication using Java 1.8.0_181 on Clelias-MBP-2.fritz.box with PID 35344 (/Users/clelia/program/fh/pickle_rick/pickle_rick_schedule/target/classes started by clelia in /Users/clelia/program/fh/pickle_rick/pickle_rick_schedule)
+2021-05-27 17:49:30.655  INFO 35344 --- [main] c.p.s.ScheduleApplication                : No active profile set, falling back to default profiles: default
+2021-05-27 17:49:31.118  INFO 35344 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-05-27 17:49:31.171  INFO 35344 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 47 ms. Found 6 JPA repository interfaces.
+2021-05-27 17:49:31.425  INFO 35344 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@76d05cc9' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-05-27 17:49:31.437  INFO 35344 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-05-27 17:49:31.580  INFO 35344 --- [main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8080 (http)
+2021-05-27 17:49:31.586  INFO 35344 --- [main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2021-05-27 17:49:31.586  INFO 35344 --- [main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.43]
+2021-05-27 17:49:31.636  INFO 35344 --- [main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2021-05-27 17:49:31.637  INFO 35344 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 946 ms
+2021-05-27 17:49:31.726  INFO 35344 --- [main] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2021-05-27 17:49:31.998  INFO 35344 --- [main] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2021-05-27 17:49:32.029  INFO 35344 --- [main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-05-27 17:49:32.057  INFO 35344 --- [main] o.h.Version                              : HHH000412: Hibernate ORM core version 5.4.28.Final
+2021-05-27 17:49:32.131  INFO 35344 --- [main] o.h.a.c.Version                          : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-05-27 17:49:32.204  INFO 35344 --- [main] o.h.d.Dialect                            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-05-27 17:49:32.653  INFO 35344 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-05-27 17:49:32.660  INFO 35344 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-05-27 17:49:32.996  WARN 35344 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-05-27 17:49:33.140  INFO 35344 --- [main] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@152e7703, org.springframework.security.web.context.SecurityContextPersistenceFilter@9f1ca74, org.springframework.security.web.header.HeaderWriterFilter@61554b6b, org.springframework.security.web.authentication.logout.LogoutFilter@21f91efa, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@51a719e7, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@365e65bb, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@63326a3a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1b60d324, org.springframework.security.web.session.SessionManagementFilter@687b0ddc, org.springframework.security.web.access.ExceptionTranslationFilter@6a6e9289, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@126a9a3d]
+2021-05-27 17:49:33.229  INFO 35344 --- [main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
+2021-05-27 17:49:33.294  INFO 35344 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2021-05-27 17:49:33.457  WARN 35344 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'; nested exception is org.springframework.boot.web.server.PortInUseException: Port 8080 is already in use
+2021-05-27 17:49:33.458  INFO 35344 --- [main] o.s.s.c.ThreadPoolTaskExecutor           : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-05-27 17:49:33.460  INFO 35344 --- [main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-05-27 17:49:33.461  INFO 35344 --- [main] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
+2021-05-27 17:49:33.464  INFO 35344 --- [main] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.
+2021-05-27 17:49:33.466  INFO 35344 --- [main] o.a.c.c.StandardService                  : Stopping service [Tomcat]
+2021-05-27 17:49:33.475  INFO 35344 --- [main] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2021-05-27 17:49:33.489 ERROR 35344 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2021-05-27 17:49:41.765  INFO 35359 --- [main] c.p.s.ScheduleApplication                : Starting ScheduleApplication using Java 1.8.0_181 on Clelias-MBP-2.fritz.box with PID 35359 (/Users/clelia/program/fh/pickle_rick/pickle_rick_schedule/target/classes started by clelia in /Users/clelia/program/fh/pickle_rick/pickle_rick_schedule)
+2021-05-27 17:49:41.772  INFO 35359 --- [main] c.p.s.ScheduleApplication                : No active profile set, falling back to default profiles: default
+2021-05-27 17:49:42.198  INFO 35359 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-05-27 17:49:42.239  INFO 35359 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 35 ms. Found 6 JPA repository interfaces.
+2021-05-27 17:49:42.443  INFO 35359 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@5b4d25e7' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-05-27 17:49:42.448  INFO 35359 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-05-27 17:49:42.588  INFO 35359 --- [main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8080 (http)
+2021-05-27 17:49:42.594  INFO 35359 --- [main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2021-05-27 17:49:42.594  INFO 35359 --- [main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.43]
+2021-05-27 17:49:42.642  INFO 35359 --- [main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2021-05-27 17:49:42.643  INFO 35359 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 837 ms
+2021-05-27 17:49:42.734  INFO 35359 --- [main] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2021-05-27 17:49:43.004  INFO 35359 --- [main] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2021-05-27 17:49:43.034  INFO 35359 --- [main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-05-27 17:49:43.064  INFO 35359 --- [main] o.h.Version                              : HHH000412: Hibernate ORM core version 5.4.28.Final
+2021-05-27 17:49:43.139  INFO 35359 --- [main] o.h.a.c.Version                          : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-05-27 17:49:43.210  INFO 35359 --- [main] o.h.d.Dialect                            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-05-27 17:49:43.640  INFO 35359 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-05-27 17:49:43.648  INFO 35359 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-05-27 17:49:43.983  WARN 35359 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-05-27 17:49:44.123  INFO 35359 --- [main] o.s.s.w.DefaultSecurityFilterChain       : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@126a9a3d, org.springframework.security.web.context.SecurityContextPersistenceFilter@359e27d2, org.springframework.security.web.header.HeaderWriterFilter@47f0f414, org.springframework.security.web.authentication.logout.LogoutFilter@18bb1b88, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@87aec6a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@214fba74, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@20890a1a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7db47323, org.springframework.security.web.session.SessionManagementFilter@4809c771, org.springframework.security.web.access.ExceptionTranslationFilter@401ec794, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@48106381]
+2021-05-27 17:49:44.212  INFO 35359 --- [main] o.s.s.c.ThreadPoolTaskExecutor           : Initializing ExecutorService 'applicationTaskExecutor'
+2021-05-27 17:49:44.276  INFO 35359 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2021-05-27 17:49:44.438  INFO 35359 --- [main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8080 (http) with context path ''
+2021-05-27 17:49:44.446  INFO 35359 --- [main] c.p.s.ScheduleApplication                : Started ScheduleApplication in 2.973 seconds (JVM running for 3.501)
+2021-05-27 17:49:55.172  INFO 35359 --- [http-nio-8080-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-05-27 17:49:55.172  INFO 35359 --- [http-nio-8080-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2021-05-27 17:49:55.173  INFO 35359 --- [http-nio-8080-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 1 ms
+2021-05-27 18:19:36.609  INFO 35359 --- [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor           : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-05-27 18:19:36.611  INFO 35359 --- [SpringContextShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-05-27 18:19:36.615  INFO 35359 --- [SpringContextShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
+2021-05-27 18:19:36.618  INFO 35359 --- [SpringContextShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.

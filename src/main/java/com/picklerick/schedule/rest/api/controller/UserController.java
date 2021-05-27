@@ -21,8 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.*;
 
 
 @RestController
@@ -121,7 +120,7 @@ public class UserController {
                 }).orElseGet(() -> repository.save(user));
 
     }
-    
+
     /**
      * Create new user
      *

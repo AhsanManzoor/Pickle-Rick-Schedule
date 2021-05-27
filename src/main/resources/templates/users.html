@@ -29,12 +29,12 @@
             <td th:text="${user.lastname}">Test</td>
             <td th:text="${user.email}">Email</td>
             <td th:text="${user.weeklySchedule}">Scheduled</td>
-            <td th:text="${work[__${iterStat.index}__].?workedTime} ?:'(no worked time this week)'">Worked</td>
-            <td th:text="${work[__${iterStat.index}__].weeklyDifference} ?: ' '">Test</td>
+            <td th:if="${work[__${iterStat.index}__]}" th:text="${work[__${iterStat.index}__].workedTime} ?:'(no worked time this week)'">Worked</td>
+            <td th:if="${work[__${iterStat.index}__]}" th:text="${work[__${iterStat.index}__].weeklyDifference} ?: ' '">Test</td>
         </tr>
         </tbody>
     </table>
-    <button name="addUserButton" onclick="loadAddUserForm()"> Add new Employee </button>
+    <button class="btn btn-primary border" name="addUserButton" onclick="loadAddUserForm()"> Add new Employee </button>
 </div>
 <div id="target"></div>
 </body>
