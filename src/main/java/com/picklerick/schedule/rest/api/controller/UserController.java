@@ -2,6 +2,7 @@ package com.picklerick.schedule.rest.api.controller;
 
 import com.picklerick.schedule.rest.api.model.Login;
 import com.picklerick.schedule.rest.api.model.User;
+import com.picklerick.schedule.rest.api.model.WorkingWeek;
 import com.picklerick.schedule.rest.api.repository.UserRepository;
 import com.picklerick.schedule.rest.api.repository.WorkingWeekRepository;
 import com.picklerick.schedule.rest.api.security.CustomUserDetails;
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.Map;
+import java.util.*;
 
 
 @RestController
@@ -54,16 +55,15 @@ public class UserController {
             monday = monday.minusDays(1);
         }
         model.addAttribute("users", repository.findAll());
-       /* model.addAttribute("work", workingWeekRepository.findAll());
 
-        ArrayList<Object> workSummary = null;
+        ArrayList<WorkingWeek> workSummary = new ArrayList<>();
 
         Iterable<User> allUser = repository.findAll();
         for (User user : allUser ) {
             WorkingWeek week = workingWeekRepository.findByStartDateAndUserId(monday, user.getId());
-
-            workSummary.add(week.getScheduledTime(), week.getWorkedTime(), week.getWeeklyDifference())
-        }*/
+            workSummary.add(week);
+        }
+        model.addAttribute("work", workSummary);
         return repository.findAll();
     }
 
@@ -120,7 +120,7 @@ public class UserController {
                 }).orElseGet(() -> repository.save(user));
 
     }
-    
+
     /**
      * Create new user
      *

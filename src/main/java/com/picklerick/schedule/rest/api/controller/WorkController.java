@@ -10,13 +10,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @RestController
@@ -467,18 +466,19 @@ public class WorkController {
      *
      * @author Stefan
      * */
-    @ModelAttribute("allWorkAdmin")
+  /*  @ModelAttribute("allWorkAdmin")
     @Secured("ROLE_ADMIN")
     @GetMapping("/allWorkAdmin")
     List<Work> getWorkOfEmployeesAsAdmin(Authentication authentication, Model model) {
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         Long managerId = userDetails.getUserId();
-        ArrayList<Work> allDays = (ArrayList<Work>) workRepository.findAll();
         ArrayList<Work> finalDays = new ArrayList<>();
+      /*  ArrayList<Work> allDays = (ArrayList<Work>) workRepository.findAll();
+
 
             for (int i = 0; i < allDays.size(); i++) {
-                    Long idOfManager = userRepository.findById(allDays.get(i).getUser_id()).get().getManagerId();
-                    if (idOfManager == managerId) {
+                    User user = userRepository.findById(allDays.get(i).getUser_id()).get();
+                    if (user.getManagerId() == managerId) {
                         finalDays.add(allDays.get(i));
                     }
                 }
@@ -488,9 +488,18 @@ public class WorkController {
         }
         model.addAttribute("user", userRepository.findById(userDetails.getUserId()).get());
         model.addAttribute("allWorkAdmin", finalDays);
-        return finalDays;
+        return finalDays; */
+       /* List<User> users = userRepository.findByManagerId(managerId);
+        for (User user: users) {
+            List<Work> works = workRepository.findByUserId(user.getId());
+            ArrayList<LocalDate> dates = new ArrayList<>();
+            for (Work work: works) {
+                dates.add(work.getDate());
+            }
+             Optional<LocalDate> maxday = dates.stream().max(LocalDate::compareTo);
+        }
     }
-
+*/
     /**
      * Get information about the daily contribution of users created by the logged in admin
      *
