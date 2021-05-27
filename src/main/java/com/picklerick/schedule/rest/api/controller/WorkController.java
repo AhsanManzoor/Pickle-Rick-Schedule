@@ -29,7 +29,6 @@ public class WorkController {
     private final WorkingWeekRepository workingWeekRepository;
     private static final Logger LOGGER = LoggerFactory.getLogger(WorkController.class);
 
-
     /**
      * WorkController constructor initializing work repository
      *
@@ -164,6 +163,9 @@ public class WorkController {
         double max_workingTime_in_a_row = 5.5;
         double length_of_break = 0.25;
         double result;
+        if (inT.isAfter(outT)|| inT.isAfter(autoOut)){
+            return 0.0;
+        }
         if (earliestStart.isAfter(inT)) {
             inT= earliestStart;
         }
@@ -178,6 +180,9 @@ public class WorkController {
 
         if (result >= max_workingTime_in_a_row) {
             result = result  - length_of_break ;
+        }
+        if(result > 15.25){
+            return 0.0;
         }
 
         return result;
@@ -500,17 +505,17 @@ public class WorkController {
         ArrayList<WorkingDay> allDays = (ArrayList<WorkingDay>) workingDayRepository.findAll();
         ArrayList<WorkingDay> finalDays = new ArrayList<>();
 
-            for (int i = 0; i < allDays.size(); i++) {
-                    Long idOfManager = userRepository.findById(allDays.get(i).getUserId()).get().getManagerId();
-                    if (idOfManager == managerId) {
-                        finalDays.add(allDays.get(i));
+        for (int i = 0; i < allDays.size(); i++) {
+            Long idOfManager = userRepository.findById(allDays.get(i).getUserId()).get().getManagerId();
+            if (idOfManager == managerId) {
+                finalDays.add(allDays.get(i));
 
             }
         }
-            if (finalDays.isEmpty()) {
-                WorkingDay n = new WorkingDay();
-                finalDays.add(n);
-            }
+        if (finalDays.isEmpty()) {
+            WorkingDay n = new WorkingDay();
+            finalDays.add(n);
+        }
 
         model.addAttribute("dailyWorkAdmin", finalDays);
         return finalDays;
@@ -530,12 +535,12 @@ public class WorkController {
         ArrayList<WorkingWeek> allWeeks = (ArrayList<WorkingWeek>) workingWeekRepository.findAll();
         ArrayList<WorkingWeek> finalWeeks = new ArrayList<>();
 
-            for (int i = 0; i < allWeeks.size(); i++) {
-                    Long idOfManager = userRepository.findById(allWeeks.get(i).getUser_id()).get().getManagerId();
-                    if (idOfManager == managerId) {
-                        finalWeeks.add(allWeeks.get(i));
-                    }
-                }
+        for (int i = 0; i < allWeeks.size(); i++) {
+            Long idOfManager = userRepository.findById(allWeeks.get(i).getUser_id()).get().getManagerId();
+            if (idOfManager == managerId) {
+                finalWeeks.add(allWeeks.get(i));
+            }
+        }
         if (finalWeeks.isEmpty()) {
             WorkingWeek n = new WorkingWeek();
             finalWeeks.add(n);
@@ -558,16 +563,16 @@ public class WorkController {
         ArrayList<WorkingMonth> allMonths = (ArrayList<WorkingMonth>) workingMonthRepository.findAll();
         ArrayList<WorkingMonth> finalMonth = new ArrayList<>();
 
-            for (int i = 0; i < allMonths.size(); i++) {
-                if (userRepository.findById(allMonths.get(i).getUser_id()).get().getManagerId() != null) {
-                    Long idOfManager = userRepository.findById(allMonths.get(i).getUser_id()).get().getManagerId();
-                    if (idOfManager == managerId) {
-                        finalMonth.add(allMonths.get(i));
-                    }
+        for (int i = 0; i < allMonths.size(); i++) {
+            if (userRepository.findById(allMonths.get(i).getUser_id()).get().getManagerId() != null) {
+                Long idOfManager = userRepository.findById(allMonths.get(i).getUser_id()).get().getManagerId();
+                if (idOfManager == managerId) {
+                    finalMonth.add(allMonths.get(i));
                 }
             }
-
-            model.addAttribute("monthlyWorkAdmin", finalMonth);
-            return finalMonth;
         }
+
+        model.addAttribute("monthlyWorkAdmin", finalMonth);
+        return finalMonth;
+    }
 }

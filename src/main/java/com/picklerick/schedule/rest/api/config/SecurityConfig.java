@@ -20,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final WorkController workController;
+
     private final IndexController indexController;
 
     @Autowired
@@ -102,4 +103,3 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 }
-

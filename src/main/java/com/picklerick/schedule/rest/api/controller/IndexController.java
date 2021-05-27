@@ -11,11 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import java.security.Principal;
-
 
 @Controller
 public class IndexController {
+
+     Logger logger = LoggerFactory.getLogger(IndexController.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -31,7 +31,6 @@ public class IndexController {
      * */
     @RequestMapping("/")
     public String index() {
-
         return "index";
     }
 
@@ -41,21 +40,20 @@ public class IndexController {
      * @author Clelia
      * */
     @RequestMapping("/default")
-    public String defaultAfterLogin(HttpServletRequest request, Authentication authentication, Principal principle){
+    public String defaultAfterLogin(HttpServletRequest request, Authentication authentication){
         workController.startTimeRecording(authentication);
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         Long userId = userDetails.getUserId();
-
-       User user = userRepository.findById(userId).get();
+        User user = userRepository.findById(userId).get();
 
         request.getUserPrincipal();
         if (request.isUserInRole("ROLE_ADMIN")) {
 
-            LOGGER.info(user.getFirstname()+" "+user.getLastname() + "is an admin and has logged in!!");
+            LOGGER.info(user.getFirstname()+" "+user.getLastname() + " is an admin and has logged in!!");
             return "redirect:/overviewAdmin";
         }
 
-        LOGGER.info(user.getFirstname()+" "+user.getLastname() + "is a user and has logged in!");
+        logger.info(user.getFirstname()+" "+user.getLastname() + " is a user and has logged in!");
         return "redirect:/schedule";
     }
 
@@ -68,7 +66,7 @@ public class IndexController {
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         Long userId = userDetails.getUserId();
         User user = userRepository.findById(userId).get();
-        LOGGER.info(user.getFirstname() + " " + user.getLastname() + " logged out" );
+        logger.info(user.getFirstname() + " " + user.getLastname() + " logged out" );
     }
 
 }
