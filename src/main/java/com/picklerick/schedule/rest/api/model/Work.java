@@ -1,8 +1,14 @@
 package com.picklerick.schedule.rest.api.model;
 
+import org.apache.tomcat.jni.Local;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 @Entity
 @Table(name="work")
@@ -10,6 +16,7 @@ public class Work {
     private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
     private LocalDate date;
     @Column(name="start_at")
+    @DateTimeFormat(pattern = "HH:mm")
     private LocalTime startAt;
     @Column(name="end_at")
     private LocalTime endAt;
@@ -107,6 +114,7 @@ public class Work {
     public void setStart_at(LocalTime start_at) {
         this.startAt = start_at;
     }
+
 
     /**
      * Generated Get method for end_at

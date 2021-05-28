@@ -10,10 +10,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
@@ -391,16 +393,20 @@ public class WorkController {
      * @author Clelia
      * */
     @PostMapping ("/work/{id}")
-    public Work editWork(@ModelAttribute Work updatedWork, @PathVariable Long id, Model model) {
-        model.addAttribute("work", updatedWork);
+    public void editWork(
+            @RequestParam(name = "start_at") String start_at,
+            @RequestParam(name = "end_at") String end_at,
+            @PathVariable Long id, HttpServletResponse response
+    ) throws IOException {
         Work oldWork = workRepository.findById(id).get();
         LOGGER.info("Work was updated");
-        return workRepository.findById(id)
+        workRepository.findById(id)
                 .map(w -> {
-                    w.setStart_at(updatedWork.getStart_at());
-                    w.setEndAt(updatedWork.getEnd_at());
+                    w.setStart_at(LocalTime.parse(start_at, DateTimeFormatter.ofPattern("HH:mm:ss")));
+                    w.setEndAt(LocalTime.parse(end_at, DateTimeFormatter.ofPattern("HH:mm:ss")));
                     return workRepository.save(w);
                 }).orElseGet(()-> workRepository.save(oldWork));
+        response.sendRedirect("/work");
     }
 
     /**
@@ -413,7 +419,7 @@ public class WorkController {
     public List<Work> workForm(Model model, Authentication authentication) {
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         Long userId = userDetails.getUserId();
-        model.addAttribute("work", workRepository.findByDateAndUserId(LocalDate.now(),userId));
+        //model.addAttribute("works", workRepository.findByDateAndUserId(LocalDate.now(),userId));
         return workRepository.findByDateAndUserId(LocalDate.now(), userId);
     }
 
@@ -514,6 +520,7 @@ public class WorkController {
         ArrayList<WorkingDay> allDays = (ArrayList<WorkingDay>) workingDayRepository.findAll();
         ArrayList<WorkingDay> finalDays = new ArrayList<>();
 
+
         for (int i = 0; i < allDays.size(); i++) {
             Long idOfManager = userRepository.findById(allDays.get(i).getUserId()).get().getManagerId();
             if (idOfManager == managerId) {
@@ -525,7 +532,11 @@ public class WorkController {
             WorkingDay n = new WorkingDay();
             finalDays.add(n);
         }
-
+        ArrayList<User> users = new ArrayList<>();
+        for(WorkingDay day : finalDays){
+            users.add(userRepository.findById(day.getUserId()).get());
+        }
+        model.addAttribute("users", users);
         model.addAttribute("dailyWorkAdmin", finalDays);
         return finalDays;
     }
@@ -554,6 +565,11 @@ public class WorkController {
             WorkingWeek n = new WorkingWeek();
             finalWeeks.add(n);
         }
+        ArrayList<User> users = new ArrayList<>();
+        for(WorkingWeek week : finalWeeks){
+            users.add(userRepository.findById(week.getUser_id()).get());
+        }
+        model.addAttribute("users", users);
         model.addAttribute("weeklyWorkAdmin", finalWeeks);
         return finalWeeks;
     }
@@ -580,6 +596,11 @@ public class WorkController {
                 }
             }
         }
+        ArrayList<User> users = new ArrayList<>();
+        for(WorkingMonth month : finalMonth){
+            users.add(userRepository.findById(month.getUser_id()).get());
+        }
+        model.addAttribute("users", users);
 
         model.addAttribute("monthlyWorkAdmin", finalMonth);
         return finalMonth;

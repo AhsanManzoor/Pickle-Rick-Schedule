@@ -2,7 +2,8 @@ package com.picklerick.schedule.rest.api.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-
+import java.time.LocalTime;
+import java.util.List;
 @Entity
 @Table(name="workingMonth")
 public class WorkingMonth {

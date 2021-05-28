@@ -14,14 +14,14 @@
 
 </head>
 <body>
-<tr th:each="work : ${work}">
+<tr th:each=" workEntry: ${work}">
     <td>
-        <form class="form" method="post" enctype="multipart/form-data" th:action="@{/work/{id}(id= ${work.id})}">
+        <form class="form" method="post" enctype="multipart/form-data" th:action="@{/work/{id}(id= ${workEntry.id})}">
             <table>
                 <tr>
-                    <td> <input name="start_at" class="form-control" type="time" th:value="${work.start_at}"/></td>
-                    <td> <input name="end_at" class="form-control" type="time" th:value="${work.end_at}"/></td>
-                    <td><input class="btn" type="submit" value="Upload"/></td>
+                    <td> <input name="start_at" class="form-control" type="time" th:value="*{workEntry.start_at}"/></td>
+                    <td> <input name="end_at" class="form-control" type="time" th:value="*{workEntry.end_at}"/></td>
+                    <td><input class="btn btn-primary border submitbtn" type="submit" value="Upload"/></td>
                 </tr>
             </table>
         </form>

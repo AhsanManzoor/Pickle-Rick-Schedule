@@ -22,6 +22,7 @@
             <th>Scheduled</th>
             <th>Actual</th>
             <th>Over/Under time</th>
+            <th>Edit</th>
         </tr>
         </thead>
         <tbody>
@@ -31,10 +32,11 @@
             <td th:text="${user.weeklySchedule}">Scheduled</td>
             <td th:if="${work[__${iterStat.index}__]}" th:text="${work[__${iterStat.index}__].workedTime} ?:'(no worked time this week)'">Worked</td>
             <td th:if="${work[__${iterStat.index}__]}" th:text="${work[__${iterStat.index}__].weeklyDifference} ?: ' '">Test</td>
+            <td><button th:onclick="|loadEditUserForm('${user.id}')|" type="submit" value="Edit">Edit</button></td>
         </tr>
         </tbody>
     </table>
-    <button class="btn btn-primary border" name="addUserButton" onclick="loadAddUserForm()"> Add new Employee </button>
+    <button class="btn btn-primary border submitbtn" name="addUserButton" onclick="loadAddUserForm()"> Add new Employee </button>
 </div>
 <div id="target"></div>
 </body>
@@ -44,6 +46,12 @@
         const userList= parent.document.getElementById('iframe-all-users')
         const userForm = document.createElement('iframe');
         userForm.setAttribute('src', 'user');
+        userList.replaceWith(userForm);
+    }
+    function loadEditUserForm(id) {
+        const userList= parent.document.getElementById('iframe-all-users')
+        const userForm = document.createElement('iframe');
+        userForm.setAttribute('src', `user/${id}`);
         userList.replaceWith(userForm);
     }
 </script>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Overview</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" th:href="@{../css/bootstrap/bootstrap.min.css}"/>
+    <link type="text/css" rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Bitter:400,700}">
+    <link type="text/css" rel="stylesheet"
+          th:href="@{https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700}">
+    <link type="text/css" rel="stylesheet" th:href="@{../css/main.css}"/>
+    <script th:src="@{../js/jquery.min.js}"></script>
+</head>
+<body>
+<div id="addUserContent">
+    <form class="form" method="post" enctype="multipart/form-data" th:action="@{/user/{id}(id=${user.id})}" th:object="${user}">
+        <div class="form-group">
+            <div class="form-group">
+                <label>First Name</label>
+                <input class="form-control" type="text" placeholder="John"  th:field="${user.firstname}" required th:value="${user.firstname}">
+            </div>
+            <div class="form-group">
+                <label>Last Name</label>
+                <input class="form-control" type="text" placeholder="Doe" th:field="${user.lastname}" required th:value="${user.lastname}">
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input class="form-control" type="email" placeholder="user@example.com" th:field="${user.email}" required th:value="${user.email}">
+            </div>
+            <div class="form-group">
+                <label>Scheduled Time</label>
+                <input class="form-control" type="number" th:field="${user.weeklySchedule}" required max="60" min="1" th:value="${user.weeklySchedule}">
+            </div>
+        </div>
+       <div class="form-group">
+            <label for="role">Choose Role</label>
+            <select class="form-control selectpicker" th:field="*{roles}" id="role" required>
+                <option value="">Nothing selected</option>
+                <option th:each="role : ${roles}"
+                        th:value="${role.id}"
+                        th:text="${role.name}"
+                        th:selected="${role.id == selectedRole.id}">
+                </option>
+            </select>
+        </div>
+        <input type="submit" class="btn btn-primary border" />
+    </form>
+</div>
+</body>
+</html>

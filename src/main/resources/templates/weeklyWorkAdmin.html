@@ -18,7 +18,7 @@
         <thead>
         <tr>
             <th>First day of week</th>
-            <th>Employee Id</th>
+            <th>Employee</th>
             <th>Hours worked in that week</th>
             <th>Hours expected to work in that week</th>
             <th>Difference</th>
@@ -29,9 +29,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="work:${weeklyWorkAdmin}">
+        <tr th:each="work, iterStat:${weeklyWorkAdmin}">
             <td th:text="${work.startDate}">First day of week</td>
-            <td th:text="${work.user_id}">Employee Id</td>
+            <th th:text="${users[__${iterStat.index}__].firstname + ' '+ users[__${iterStat.index}__].lastname }">Employee Id</td>
             <td th:text="${work.workedTime}">Hours worked in that week</td>
             <td th:text="${work.scheduledTime}">Hours expected to work in that week</td>
             <td th:text="${work.weeklyDifference}">Difference</td>

@@ -18,7 +18,7 @@
         <thead>
         <tr>
             <th>Date</th>
-            <th>Employee Id</th>
+            <th>Employee</th>
             <th>Hours worked that day</th>
             <th>Hours expected to work that day</th>
             <th>Difference</th>
@@ -28,14 +28,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="work: ${dailyWorkAdmin}">
+        <tr th:each="work, iterStat: ${dailyWorkAdmin}">
             <td th:text="${work.date}">Date</td>
-            <th th:text="${work.userId}">Employee Id</td>
+            <th th:text="${users[__${iterStat.index}__].firstname + ' '+ users[__${iterStat.index}__].lastname }">Employee Id</td>
             <td th:text="${work.workedTime}">Hours worked that day</td>
             <td th:text="${work.scheduledTime}">Hours expected to work that day</td>
             <td th:text="${work.dailyDifference}">Difference</td>
-
-
         </tr>
         </tbody>
     </table>

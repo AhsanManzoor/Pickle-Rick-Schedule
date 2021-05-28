@@ -2,6 +2,7 @@ package com.picklerick.schedule.rest.api.controller;
 
 import com.picklerick.schedule.rest.api.model.User;
 import com.picklerick.schedule.rest.api.repository.UserRepository;
+import com.picklerick.schedule.rest.api.repository.WorkRepository;
 import com.picklerick.schedule.rest.api.security.CustomUserDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

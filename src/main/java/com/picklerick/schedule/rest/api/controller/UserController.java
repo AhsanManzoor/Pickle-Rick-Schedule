@@ -61,7 +61,7 @@ public class UserController {
         Iterable<User> allUser = repository.findAll();
         for (User user : allUser ) {
             WorkingWeek week = workingWeekRepository.findByStartDateAndUserId(monday, user.getId());
-            workSummary.add(week);
+               workSummary.add(week);
         }
         model.addAttribute("work", workSummary);
         return repository.findAll();
@@ -80,48 +80,6 @@ public class UserController {
     }
 
     /**
-     * Update a users information
-     *
-     * @author: Clelia & Stefan
-     * @param id id of user updating their information
-     * */
-    @Secured("ROLE_ADMIN")
-    @PatchMapping("/users/{id}")
-    public User updateUserAsAdmin(@RequestBody Map<String, Object> userUpdates, @PathVariable Long id) {
-        User user = repository.findById(id).get();
-        // Fetch User data from db and
-        // go through all the possible options of change
-        // and save the changes to the user
-        return repository.findById(id)
-                .map(u -> {
-                    userUpdates.forEach(
-                            (update, value)-> {
-                                switch (update) {
-                                    case "firstname":
-                                        u.setFirstname((String) value);
-                                        break;
-                                    case "lastname":
-                                        u.setLastname((String) value);
-                                        break;
-                                    case "email":
-                                        u.setEmail((String) value);
-                                        break;
-                                    case "weekly_schedule":
-                                        u.setWeeklySchedule((Double.parseDouble((String) value)));
-                                        break;
-                                    case "manager_id":
-                                        u.setManagerId((Long.parseLong((String) value)));
-                                        break;
-                                    // TODO solve role issue + create such a method for normal users
-                                }
-                            }
-                    );
-                    return repository.save(u);
-                }).orElseGet(() -> repository.save(user));
-
-    }
-
-    /**
      * Create new user
      *
      * @author Clelia
@@ -137,6 +95,23 @@ public class UserController {
         model.addAttribute("user", user);
         repository.save(user);
         LOGGER.info("New user "+ user.getFirstname()+" "+ user.getLastname()+" was saved to the database");
+        response.sendRedirect("/users");
+    }
+
+    /**
+     * Edit user
+     *
+     * @author Clelia
+     * */
+    @Secured("ROLE_ADMIN")
+    @PostMapping("/user/{id}")
+    public void addNewUser(@ModelAttribute User user, Model model, @PathVariable Long id, Authentication authentication, HttpServletResponse response) throws IOException {
+        User oldUser = repository.findById(id).get();
+        user.setManagerId(oldUser.getManagerId());
+
+        model.addAttribute("user", user);
+        repository.save(user);
+        LOGGER.info("Edited user "+ user.getFirstname()+" "+ user.getLastname()+" was saved to the database");
         response.sendRedirect("/users");
     }
 }
